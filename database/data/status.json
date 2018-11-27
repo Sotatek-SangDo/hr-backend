@@ -1,0 +1,20 @@
+[
+    {
+        "status": "Hợp đồng toàn thời gian"
+    },
+    {
+        "status": "Toàn thời gian thực tập"
+    },
+    {
+        "status": "Toàn thời gian cố định"
+    },
+    {
+        "status": "Hợp đồng bán thời gian"
+    },
+    {
+        "status": "Bán thời gian thực tập"
+    },
+    {
+        "status": "Bán thời gian cố định"
+    }
+]

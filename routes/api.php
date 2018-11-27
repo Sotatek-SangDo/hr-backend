@@ -16,4 +16,20 @@ Route::post('login', 'AuthController@login');
 
 Route::group(['middleware' => 'hr.api'], function () {
     Route::get('test', function() { return 1; });
+    Route::group(['prefix' => 'nationalities'], function() {
+        Route::get('/', 'NationalityController@getAll');
+    });
+    Route::group(['prefix' => 'employees'], function() {
+        Route::get('/', 'EmployeeController@getAll');
+        Route::post('/store', 'EmployeeController@store');
+    });
+    Route::group(['prefix' => 'employee-status'], function() {
+        Route::get('/', 'EmployeeStatusController@getAll');
+    });
+    Route::group(['prefix' => 'jobs'], function() {
+        Route::get('/', 'JobController@getAll');
+    });
+    Route::group(['prefix' => 'pay-grade'], function() {
+        Route::get('/', 'PayGradeController@getAll');
+    });
 });

@@ -1,0 +1,26 @@
+[
+    {
+        "title": "Giám đốc",
+        "salary": "12000000"
+    },
+    {
+        "title": "Điều hành",
+        "salary": "11000000"
+    },
+    {
+        "title": "Phụ tá",
+        "salary": "10000000"
+    },
+    {
+        "title": "Người quản lý",
+        "salary": "9000000"
+    },
+    {
+        "title": "Cán bộ",
+        "salary": "8000000"
+    },
+    {
+        "title": "Nhân viên",
+        "salary": "7000000"
+    }
+]
