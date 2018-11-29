@@ -14,12 +14,13 @@ class EmployeeService
         return Employee::all();
     }
 
-    public function store($params)
+    public function store($data)
     {
-        logger(json_encode($params));
+        $params = $data['emp'];
         return Employee::create([
             'name' => $params["full_name"],
             'work_email' => $params["email"],
+            'avatar' => $data['image'],
             'nationality_id' => $params["nationality_id"],
             'country' => $params["country"],
             'ethnicity' => $params["ethnicity"],
@@ -37,5 +38,10 @@ class EmployeeService
             'status' => $params["status"],
             'job_id' => $params["job"]
         ]);
+    }
+
+    public function getEmpFullInfo()
+    {
+        return Employee::with(['nationality', 'employeeStatus', 'payGrade', 'job'])->get();
     }
 }

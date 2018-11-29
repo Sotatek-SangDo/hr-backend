@@ -6,14 +6,18 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Validator;
 use App\Services\EmployeeService;
+use Illuminate\Support\Facades\File;
+use App\Services\UploadImageService;
 
 class EmployeeController extends Controller 
 {
     private $employeeService;
+    private $uploadService;
 
-    public function __construct(EmployeeService $employeeService)
+    public function __construct(EmployeeService $employeeService, UploadImageService $uploadService)
     {
         $this->employeeService = $employeeService;
+        $this->uploadService = $uploadService;
     }
 
     public function getAll()
@@ -24,10 +28,21 @@ class EmployeeController extends Controller
 
     public function store(Request $request)
     {
-        $params = $request->all();
+        $path = $this->uploadService->upload($request);
+        if (!$path) return response()->json(['status' => false]); 
+        $params = [
+            'emp' => $request->all(),
+            'image' => $path
+        ];
         $result = $this->employeeService->store($params);
         if ($result)
             return response()->json(['status' => true]);
         return response()->json(['status' => false]);
+    }
+
+    public function getEmpFullInfo()
+    {
+        $employees = $this->employeeService->getEmpFullInfo();
+        return response()->json($employees);
     }
 }

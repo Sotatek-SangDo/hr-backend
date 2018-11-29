@@ -22,6 +22,7 @@ Route::group(['middleware' => 'hr.api'], function () {
     Route::group(['prefix' => 'employees'], function() {
         Route::get('/', 'EmployeeController@getAll');
         Route::post('/store', 'EmployeeController@store');
+        Route::get('/full-info', 'EmployeeController@getEmpFullInfo');
     });
     Route::group(['prefix' => 'employee-status'], function() {
         Route::get('/', 'EmployeeStatusController@getAll');
@@ -31,5 +32,11 @@ Route::group(['middleware' => 'hr.api'], function () {
     });
     Route::group(['prefix' => 'pay-grade'], function() {
         Route::get('/', 'PayGradeController@getAll');
+    });
+    Route::group(['prefix' => 'skills'], function() {
+        Route::get('/', 'SkillController@getAll');
+    });
+    Route::group(['prefix' => 'skill-user'], function() {
+        Route::get('/', 'SkillUserController@getAll');
     });
 });
