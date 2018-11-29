@@ -15,4 +15,10 @@ class SkillController extends Controller
     {
         $this->skillService = $skillService;
     }
+
+    public function getAll()
+    {
+        $skills = $this->skillService->getAll();
+        return response()->json($skills);
+    }
 }

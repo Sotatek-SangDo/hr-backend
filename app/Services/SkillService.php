@@ -8,5 +8,8 @@ use App\Models\Skill;
 
 class SkillService
 {
-
+    public function getAll()
+    {
+        return Skill::all();
+    }
 }

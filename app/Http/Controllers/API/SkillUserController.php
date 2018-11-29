@@ -15,4 +15,18 @@ class SkillUserController extends Controller
     {
         $this->skillUserService = $skillUserService;
     }
+
+    public function getAll()
+    {
+        $userSkills = $this->skillUserService->getAll();
+        return response()->json($userSkills);
+    }
+
+    public function store(Request $request)
+    {
+        $result = $this->skillUserService->store($request);
+        if ($result)
+            return response()->json(['status'=> true, 'mess' => 'Thành công']);
+        return response()->json(['status' => false, 'mess' => 'Lỗi server']);
+    }
 }
