@@ -22,6 +22,15 @@ class SkillUserService
         ]);
     }
 
+    public function update($request)
+    {
+        $skillUser = SkillUser::findOrFail($request['id']);
+        $skillUser->skill_id = $request['skill_id'];
+        $skillUser->detail = $request['detail'];
+        $skillUser->save();
+        return $skillUser;
+    }
+
     public function destroy($request)
     {
         $skillUser = SkillUser::findOrFail($request->id);
