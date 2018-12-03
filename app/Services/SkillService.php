@@ -12,4 +12,9 @@ class SkillService
     {
         return Skill::all();
     }
+
+    public function store($request)
+    {
+        
+    }
 }

@@ -15,6 +15,16 @@ class SkillUserService
 
     public function store($request)
     {
-        return true;
+        return SkillUser::create([
+            'emp_id' => $request['emp_id'],
+            'skill_id' => $request['skill_id'],
+            'detail' => $request['detail']
+        ]);
+    }
+
+    public function destroy($request)
+    {
+        $skillUser = SkillUser::findOrFail($request->id);
+        return $skillUser->delete();
     }
 }

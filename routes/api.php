@@ -39,5 +39,6 @@ Route::group(['middleware' => 'hr.api'], function () {
     Route::group(['prefix' => 'skill-user'], function() {
         Route::get('/', 'SkillUserController@getAll');
         Route::post('/store', 'SkillUserController@store');
+        Route::post('/destroy', 'SkillUserController@destroy');
     });
 });
