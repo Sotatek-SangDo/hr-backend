@@ -40,6 +40,36 @@ class EmployeeService
         ]);
     }
 
+    public function update($data)
+    {
+        $params = $data['emp'];
+        logger(json_encode($params));
+        $emp = Employee::findOrFail($params['id']);
+        $emp->name = $params['full_name'];
+        $emp->work_email = $params['email'];
+        if ($data['image']) {
+            $emp->avatar = $data['image'];
+        }
+        $emp->nationality_id = $params['nationality_id'];
+        $emp->country = $params['country'];
+        $emp->ethnicity = $params['ethnicity'];
+        $emp->private_email = $params['private_email'];
+        $emp->address = $params['address'];
+        $emp->joined_at = Carbon::parse($params["joined_at"])->toDateString();
+        $emp->phone = $params['phone'];
+        $emp->gender = $params['gender'];
+        $emp->birthday = Carbon::parse($params['birthday'])->toDateString();
+        $emp->marital_status = $params['marital_status'];
+        $emp->confirmed_at = Carbon::parse($params['confirmed_at'])->toDateString();
+        $emp->supervisor_id = 1;
+        $emp->department_id = 1;//$params["department"],
+        $emp->paygrade_id = $params["pay_grade"];
+        $emp->status = $params['status'];
+        $emp->job_id = $params['job'];
+        $emp->save();
+        return $emp;
+    }
+
     public function getEmpFullInfo()
     {
         return Employee::with(['nationality', 'employeeStatus', 'payGrade', 'job'])->get();

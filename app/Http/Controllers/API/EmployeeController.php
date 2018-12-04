@@ -40,6 +40,19 @@ class EmployeeController extends Controller
         return response()->json(['status' => false]);
     }
 
+    public function update(Request $request)
+    {
+        $path = $this->uploadService->upload($request);
+        $params = [
+            'emp' => $request->all(),
+            'image' => $path
+        ];
+        $result = $this->employeeService->update($params);
+        if ($result)
+            return response()->json(['status' => true]);
+        return response()->json(['status' => false]);
+    }
+
     public function getEmpFullInfo()
     {
         $employees = $this->employeeService->getEmpFullInfo();

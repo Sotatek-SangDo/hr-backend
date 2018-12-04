@@ -22,6 +22,7 @@ Route::group(['middleware' => 'hr.api'], function () {
     Route::group(['prefix' => 'employees'], function() {
         Route::get('/', 'EmployeeController@getAll');
         Route::post('/store', 'EmployeeController@store');
+        Route::post('/update', 'EmployeeController@update');
         Route::get('/full-info', 'EmployeeController@getEmpFullInfo');
     });
     Route::group(['prefix' => 'employee-status'], function() {
