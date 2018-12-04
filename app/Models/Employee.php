@@ -7,6 +7,7 @@ use App\Models\Nationality;
 use App\Models\EmployeeStatus;
 use App\Models\Job;
 use App\Models\PayGrade;
+use App\Models\Department;
 use DB;
 
 class Employee extends Model
@@ -61,6 +62,11 @@ class Employee extends Model
     public function payGrade()
     {
         return $this->hasOne(PayGrade::class, 'id', 'paygrade_id');
+    }
+
+    public function department()
+    {
+        return $this->hasOne(Department::class, 'id', 'department_id');
     }
 
     public function getSupervisorNameAttribute()
