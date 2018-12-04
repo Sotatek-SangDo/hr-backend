@@ -3,6 +3,8 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use App\Models\Employee;
+use DB;
 
 class SkillUser extends Model
 {
@@ -13,5 +15,14 @@ class SkillUser extends Model
         'skill_id',
         'detail'
     ];
+    
+    protected $appends = [
+        'skill',
+    ];
 
+    public function getSkillAttribute()
+    {
+        $skill = DB::table('skills')->where('id', $this->skill_id)->first();
+        return $skill ? $skill->skill_name : '';
+    }
 }

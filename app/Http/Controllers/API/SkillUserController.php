@@ -26,7 +26,23 @@ class SkillUserController extends Controller
     {
         $result = $this->skillUserService->store($request);
         if ($result)
-            return response()->json(['status'=> true, 'mess' => 'Thành công']);
+            return response()->json(['status'=> true, 'mess' => 'Thành công', 'data' => $result]);
         return response()->json(['status' => false, 'mess' => 'Lỗi server']);
+    }
+
+    public function update(Request $request)
+    {
+        $result = $this->skillUserService->update($request);
+        if ($result)
+            return response()->json(['status'=> true, 'mess' => 'Thành công', 'data' => $result]);
+        return response()->json(['status' => false, 'mess' => 'Lỗi server']);
+    }
+
+    public function destroy(Request $request)
+    {
+        $result = $this->skillUserService->destroy($request);
+        if ($result)
+            return response()->json(['status'=> true, 'mess' => 'Thành công']);
+        return response()->json(['status' => false, 'mess' => 'Lỗi server']);   
     }
 }
