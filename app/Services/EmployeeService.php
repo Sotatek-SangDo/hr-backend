@@ -17,6 +17,7 @@ class EmployeeService
     public function store($data)
     {
         $params = $data['emp'];
+
         return Employee::create([
             'name' => $params["full_name"],
             'work_email' => $params["email"],
@@ -33,7 +34,7 @@ class EmployeeService
             'marital_status' => $params["marital_status"],
             'confirmed_at' => Carbon::createFromFormat('d-m-Y', $params["confirmed_at"])->toDateString(),
             'supervisor_id' => 1,
-            'department_id' => 1,//$params["department"],
+            'department_id' => $params["department"],
             'paygrade_id' => $params["pay_grade"],
             'status' => $params["status"],
             'job_id' => $params["job"]

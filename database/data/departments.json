@@ -1,0 +1,87 @@
+[
+	{
+		"name": "Phòng kế toàn",
+		"email": "example@gmail.com",
+		"phone_number": "123456789"
+	},
+	{
+		"name": "Phòng Hành chính",
+		"email": "example@gmail.com",
+		"phone_number": "123456789"
+	},
+	{
+		"name": "Phòng Kiểm toán",
+		"email": "example@gmail.com",
+		"phone_number": "123456789"
+	},
+	{
+		"name": "Phòng Chăm sóc Khách hàng",
+		"email": "example@gmail.com",
+		"phone_number": "123456789"
+	},
+	{
+		"name": "Phòng Nhân sự",
+		"email": "example@gmail.com",
+		"phone_number": "123456789"
+	},
+	{
+		"name": "Phòng Công nghệ thông tin",
+		"email": "example@gmail.com",
+		"phone_number": "123456789"
+	},
+	{
+		"name": "Phòng Thanh toán Quốc tế",
+		"email": "example@gmail.com",
+		"phone_number": "123456789"
+	},
+	{
+		"name": "Phòng Tài chính",
+		"email": "example@gmail.com",
+		"phone_number": "123456789"
+	},
+	{
+		"name": "Phòng Quan hệ Quốc tế",
+		"email": "example@gmail.com",
+		"phone_number": "123456789"
+	},
+	{
+		"name": "Phòng Thanh toán trong nước",
+		"email": "example@gmail.com",
+		"phone_number": "123456789"
+	},
+	{
+		"name": "Phòng Marketing, phòng tiếp thị",
+		"email": "example@gmail.com",
+		"phone_number": "123456789"
+	},
+	{
+		"name": "Phòng Nghiên cứu và phát triển Sản phẩm.",
+		"email": "example@gmail.com",
+		"phone_number": "123456789"
+	},
+	{
+		"name": "Phòng Quan hệ công chúng",
+		"email": "example@gmail.com",
+		"phone_number": "123456789"
+	},
+	{
+		"name": " Phòng mua bán",
+		"email": "example@gmail.com",
+		"phone_number": "123456789"
+	},
+	{
+		"name": "Phòng Kinh doanh",
+		"email": "example@gmail.com",
+		"phone_number": "123456789"
+	},
+	{
+		"name": "Phòng bán hàng",
+		"email": "example@gmail.com",
+		"phone_number": "123456789"
+	},
+	{
+		"name": "Phòng kỹ thuật & bảo trì",
+		"email": "example@gmail.com",
+		"phone_number": "123456789"
+	}
+]

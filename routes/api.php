@@ -43,4 +43,11 @@ Route::group(['middleware' => 'hr.api'], function () {
         Route::post('/update', 'SkillUserController@update');
         Route::post('/destroy', 'SkillUserController@destroy');
     });
+    Route::group(['prefix' => 'company'], function() {
+        Route::get('/', 'CompanyController@getAll');
+    });
+    Route::group(['prefix' => 'departments'], function() {
+        Route::get('/', 'DepartmentController@getAll');
+        Route::post('/store', 'DepartmentController@store');
+    });
 });
