@@ -28,19 +28,4 @@ class EducationService
             'ended_at' => Carbon::createFromFormat('d-m-Y', $data["ended_at"])->toDateString()
         ]);
     }
-
-    public function update($request)
-    {
-        $skillUser = SkillUser::findOrFail($request['id']);
-        $skillUser->skill_id = $request['skill_id'];
-        $skillUser->detail = $request['detail'];
-        $skillUser->save();
-        return $skillUser;
-    }
-
-    public function destroy($request)
-    {
-        $skillUser = Qualification::findOrFail($request->id);
-        return $skillUser->delete();
-    }
 }

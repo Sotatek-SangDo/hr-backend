@@ -5,6 +5,7 @@ namespace App\Http\Controllers\API;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Services\EducationService;
+use App\Models\Education;
 
 class EducationController extends Controller
 {
@@ -29,18 +30,33 @@ class EducationController extends Controller
         return response()->json(['status' => false]);
     }
 
-    public function update($request)
+    public function update(Request $request)
     {
-        $skillUser = SkillUser::findOrFail($request['id']);
-        $skillUser->skill_id = $request['skill_id'];
-        $skillUser->detail = $request['detail'];
-        $skillUser->save();
-        return $skillUser;
+        try {
+            $educationUser = Education::findOrFail($request['id']);
+            $educationUser->qualification_id = $request['qualification_id'];
+            $educationUser->emp_id = $request['emp_id'];
+            $educationUser->institute = $request['institute'];
+            $educationUser->started_at = $request['started_at'];
+            $educationUser->ended_at = $request['ended_at'];
+            $educationUser->save();
+            
+            return response()->json(['status' => true]);
+        } catch (Exception $e) {
+             return response()->json(['status' => false]);
+        }
+
     }
 
-    public function destroy($request)
+    public function destroy(Request $request)
     {
-        $skillUser = SkillUser::findOrFail($request->id);
-        return $skillUser->delete();
+        try {
+            $educationUser = Education::findOrFail($request->id);
+            $educationUser->delete();
+            return response()->json(['status' => true]);
+        } catch (Exception $e) {
+            return response()->json(['status' => false]);
+        }
+        
     }
 }

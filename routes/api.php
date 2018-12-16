@@ -53,6 +53,14 @@ Route::group(['middleware' => 'hr.api'], function () {
     Route::group(['prefix' => 'educations'], function() {
         Route::get('/', 'EducationController@getAll');
         Route::post('/store', 'EducationController@store');
+        Route::post('/update', 'EducationController@update');
+        Route::post('/destroy', 'EducationController@destroy');
+    });
+    Route::group(['prefix' => 'dependents'], function() {
+        Route::get('/', 'DependentController@getAll');
+        Route::post('/store', 'DependentController@store');
+        Route::post('/update', 'DependentController@update');
+        Route::post('/destroy', 'DependentController@destroy');
     });
     Route::group(['prefix' => 'qualifications'], function() {
         Route::get('/', 'QualificationController@getAll');
