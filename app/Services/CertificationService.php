@@ -6,10 +6,10 @@ use DB;
 use Exception;
 use Carbon\Carbon;
 
-class QualificationService
+class CertificationService
 {
     public function getAll()
     {
-        return DB::table('qualifications')->get();
+        return DB::table('certifications')->get();
     }
 }

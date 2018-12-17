@@ -56,6 +56,12 @@ Route::group(['middleware' => 'hr.api'], function () {
         Route::post('/update', 'EducationController@update');
         Route::post('/destroy', 'EducationController@destroy');
     });
+    Route::group(['prefix' => 'certifications-user'], function() {
+        Route::get('/', 'CertificationUserController@getAll');
+        Route::post('/store', 'CertificationUserController@store');
+        Route::post('/update', 'CertificationUserController@update');
+        Route::post('/destroy', 'CertificationUserController@destroy');
+    });
     Route::group(['prefix' => 'dependents'], function() {
         Route::get('/', 'DependentController@getAll');
         Route::post('/store', 'DependentController@store');
@@ -64,5 +70,8 @@ Route::group(['middleware' => 'hr.api'], function () {
     });
     Route::group(['prefix' => 'qualifications'], function() {
         Route::get('/', 'QualificationController@getAll');
+    });
+    Route::group(['prefix' => 'certifications'], function() {
+        Route::get('/', 'CertificationController@getAll');
     });
 });
