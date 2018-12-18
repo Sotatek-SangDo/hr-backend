@@ -68,6 +68,12 @@ Route::group(['middleware' => 'hr.api'], function () {
         Route::post('/update', 'DependentController@update');
         Route::post('/destroy', 'DependentController@destroy');
     });
+    Route::group(['prefix' => 'emergency-contacts'], function() {
+        Route::get('/', 'EmergencyContactController@getAll');
+        Route::post('/store', 'EmergencyContactController@store');
+        Route::post('/update', 'EmergencyContactController@update');
+        Route::post('/destroy', 'EmergencyContactController@destroy');
+    });
     Route::group(['prefix' => 'qualifications'], function() {
         Route::get('/', 'QualificationController@getAll');
     });
