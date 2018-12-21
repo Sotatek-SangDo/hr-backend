@@ -11,8 +11,7 @@ class EducationService
 {
     public function getAll($empID)
     {
-        return DB::table('educations')
-            ->where('emp_id', $empID)
+        return Education::where('emp_id', $empID)
             ->leftjoin('qualifications', 'educations.qualification_id', 'qualifications.id')
             ->select('qualifications.name','educations.*')
             ->get();

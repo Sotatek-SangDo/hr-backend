@@ -74,6 +74,15 @@ Route::group(['middleware' => 'hr.api'], function () {
         Route::post('/update', 'EmergencyContactController@update');
         Route::post('/destroy', 'EmergencyContactController@destroy');
     });
+    Route::group(['prefix' => 'user-languages'], function() {
+        Route::get('/', 'UserLanguageController@getAll');
+        Route::post('/store', 'UserLanguageController@store');
+        Route::post('/update', 'UserLanguageController@update');
+        Route::post('/destroy', 'UserLanguageController@destroy');
+    });
+    Route::group(['prefix' => 'languages'], function() {
+        Route::get('/', 'LanguageController@getAll');
+    });
     Route::group(['prefix' => 'qualifications'], function() {
         Route::get('/', 'QualificationController@getAll');
     });

@@ -5,10 +5,10 @@ namespace App\Services;
 use DB;
 use Exception;
 
-class QualificationService
+class LanguageService
 {
     public function getAll()
     {
-        return DB::table('qualifications')->get();
+        return DB::table('languages')->get();
     }
 }
