@@ -6,9 +6,17 @@ use DB;
 use Exception;
 use App\Models\Employee;
 use Carbon\Carbon;
+use App\Services\HistoryEmployeeService as History;
 
 class EmployeeService
 {
+    private $history;
+
+    public function __construct(History $history)
+    {
+        $this->history = $history;
+    }
+
     public function getAll()
     {
         return Employee::all();
@@ -18,7 +26,7 @@ class EmployeeService
     {
         $params = $data['emp'];
 
-        return Employee::create([
+        $emp = Employee::create([
             'name' => $params["full_name"],
             'work_email' => $params["email"],
             'avatar' => $data['image'],
@@ -39,12 +47,21 @@ class EmployeeService
             'status' => $params["status"],
             'job_id' => $params["job"]
         ]);
+        //store history emp
+        $this->history->store($emp);
+
+        return $emp;
     }
 
     public function update($data)
     {
         $params = $data['emp'];
-        logger(json_encode($params));
+        $isChange = Employee::where('id', $params['id'])
+                        ->where('department_id', $params["department"])
+                        ->where('job_id', $params['job'])
+                        ->where('paygrade_id', $params["pay_grade"])
+                        ->where('status', $params['status'])
+                        ->count();
         $emp = Employee::findOrFail($params['id']);
         $emp->name = $params['full_name'];
         $emp->work_email = $params['email'];
@@ -63,11 +80,16 @@ class EmployeeService
         $emp->marital_status = $params['marital_status'];
         $emp->confirmed_at = Carbon::parse($params['confirmed_at'])->toDateString();
         $emp->supervisor_id = 1;
-        $emp->department_id = 1;//$params["department"],
+        $emp->department_id = $params["department"];
         $emp->paygrade_id = $params["pay_grade"];
         $emp->status = $params['status'];
         $emp->job_id = $params['job'];
         $emp->save();
+
+        //srore history
+        if (!$isChange) {
+            $this->history->store($emp);
+        }
         return $emp;
     }
 
