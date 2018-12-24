@@ -50,4 +50,43 @@ Route::group(['middleware' => 'hr.api'], function () {
         Route::get('/', 'DepartmentController@getAll');
         Route::post('/store', 'DepartmentController@store');
     });
+    Route::group(['prefix' => 'educations'], function() {
+        Route::get('/', 'EducationController@getAll');
+        Route::post('/store', 'EducationController@store');
+        Route::post('/update', 'EducationController@update');
+        Route::post('/destroy', 'EducationController@destroy');
+    });
+    Route::group(['prefix' => 'certifications-user'], function() {
+        Route::get('/', 'CertificationUserController@getAll');
+        Route::post('/store', 'CertificationUserController@store');
+        Route::post('/update', 'CertificationUserController@update');
+        Route::post('/destroy', 'CertificationUserController@destroy');
+    });
+    Route::group(['prefix' => 'dependents'], function() {
+        Route::get('/', 'DependentController@getAll');
+        Route::post('/store', 'DependentController@store');
+        Route::post('/update', 'DependentController@update');
+        Route::post('/destroy', 'DependentController@destroy');
+    });
+    Route::group(['prefix' => 'emergency-contacts'], function() {
+        Route::get('/', 'EmergencyContactController@getAll');
+        Route::post('/store', 'EmergencyContactController@store');
+        Route::post('/update', 'EmergencyContactController@update');
+        Route::post('/destroy', 'EmergencyContactController@destroy');
+    });
+    Route::group(['prefix' => 'user-languages'], function() {
+        Route::get('/', 'UserLanguageController@getAll');
+        Route::post('/store', 'UserLanguageController@store');
+        Route::post('/update', 'UserLanguageController@update');
+        Route::post('/destroy', 'UserLanguageController@destroy');
+    });
+    Route::group(['prefix' => 'languages'], function() {
+        Route::get('/', 'LanguageController@getAll');
+    });
+    Route::group(['prefix' => 'qualifications'], function() {
+        Route::get('/', 'QualificationController@getAll');
+    });
+    Route::group(['prefix' => 'certifications'], function() {
+        Route::get('/', 'CertificationController@getAll');
+    });
 });
