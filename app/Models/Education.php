@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use DB;
 
 class Education extends Model
 {
@@ -15,4 +16,14 @@ class Education extends Model
         'started_at',
         'ended_at'
     ];
+
+    protected $appends = [
+        'qualification_name',
+    ];
+
+    public function getQualificationNameAttribute()
+    {
+        $qualification = DB::table('qualifications')->where('id', $this->qualification_id)->first();
+        return $qualification ? $qualification->name : '';
+    }
 }

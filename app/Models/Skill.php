@@ -9,6 +9,7 @@ class Skill extends Model
     protected $table = 'skills';
 
     protected $fillable = [
+        'id',
         'skill_name'
     ];
 

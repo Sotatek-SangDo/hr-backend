@@ -73,6 +73,6 @@ class EmployeeService
 
     public function getEmpFullInfo()
     {
-        return Employee::with(['nationality', 'employeeStatus', 'payGrade', 'job'])->get();
+        return Employee::with(['nationality', 'employeeStatus', 'payGrade', 'job', 'certifications', 'skills', 'educations', 'languages', 'emergencyContracts'])->get();
     }
 }

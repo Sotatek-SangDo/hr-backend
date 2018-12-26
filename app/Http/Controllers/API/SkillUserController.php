@@ -22,6 +22,12 @@ class SkillUserController extends Controller
         return response()->json($userSkills);
     }
 
+    public function getEmpSkill(Request $request)
+    {
+        $userSkills = $this->skillUserService->getEmpSkill($request);
+        return response()->json($userSkills);
+    }
+
     public function store(Request $request)
     {
         $result = $this->skillUserService->store($request);

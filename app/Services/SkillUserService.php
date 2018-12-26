@@ -10,7 +10,17 @@ class SkillUserService
 {
     public function getAll()
     {
-        return SkillUser::all();
+        return SkillUser::select('skill_user.id as id', 'emp_id', 'skill_id', 'detail', 'employees.name as name')
+                ->join('employees', 'skill_user.emp_id', '=', 'employees.id')
+                ->get();
+    }
+
+    public function getEmpSkill($request)
+    {
+        return SkillUser::select('skill_user.id as id', 'emp_id', 'skill_id', 'detail', 'employees.name as name')
+                ->join('employees', 'skill_user.emp_id', '=', 'employees.id')
+                ->where('emp_id', $request['id'])
+                ->get();
     }
 
     public function store($request)

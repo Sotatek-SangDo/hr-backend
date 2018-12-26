@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use DB;
 
 class CertificationUser extends Model
 {
@@ -15,4 +16,14 @@ class CertificationUser extends Model
         'granted_on',
         'valid_to'
     ];
+
+    protected $appends = [
+        'certification_name',
+    ];
+
+    public function getCertificationNameAttribute()
+    {
+        $certification = DB::table('certifications')->where('id', $this->certification_id)->first();
+        return $certification ? $certification->name : '';
+    }
 }

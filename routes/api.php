@@ -39,6 +39,7 @@ Route::group(['middleware' => 'hr.api'], function () {
     });
     Route::group(['prefix' => 'skill-user'], function() {
         Route::get('/', 'SkillUserController@getAll');
+        Route::get('get-emp-skill', 'SkillUserController@getEmpSkill');
         Route::post('/store', 'SkillUserController@store');
         Route::post('/update', 'SkillUserController@update');
         Route::post('/destroy', 'SkillUserController@destroy');
@@ -52,6 +53,7 @@ Route::group(['middleware' => 'hr.api'], function () {
     });
     Route::group(['prefix' => 'educations'], function() {
         Route::get('/', 'EducationController@getAll');
+        Route::get('get-eEducation', 'EducationController@getEmployeeEducation');
         Route::post('/store', 'EducationController@store');
         Route::post('/update', 'EducationController@update');
         Route::post('/destroy', 'EducationController@destroy');

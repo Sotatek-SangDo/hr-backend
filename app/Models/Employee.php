@@ -8,6 +8,11 @@ use App\Models\EmployeeStatus;
 use App\Models\Job;
 use App\Models\PayGrade;
 use App\Models\Department;
+use App\Models\SkillUser;
+use App\Models\UserLanguages;
+use App\Models\CertificationUser;
+use App\Models\Education;
+use App\Models\EmergencyContact;
 use DB;
 
 class Employee extends Model
@@ -67,6 +72,31 @@ class Employee extends Model
     public function department()
     {
         return $this->hasOne(Department::class, 'id', 'department_id');
+    }
+
+    public function skills()
+    {
+        return $this->hasMany(SkillUser::class, 'emp_id', 'id');
+    }
+
+    public function languages()
+    {
+        return $this->hasMany(UserLanguages::class, 'emp_id', 'id');
+    }
+
+    public function certifications()
+    {
+        return $this->hasMany(CertificationUser::class, 'emp_id', 'id');
+    }
+
+    public function educations()
+    {
+        return $this->hasMany(Education::class, 'emp_id', 'id');
+    }
+
+    public function emergencyContracts()
+    {
+        return $this->hasMany(EmergencyContact::class, 'emp_id', 'id');
     }
 
     public function getSupervisorNameAttribute()
