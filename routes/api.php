@@ -82,6 +82,12 @@ Route::group(['middleware' => 'hr.api'], function () {
         Route::post('/update', 'UserLanguageController@update');
         Route::post('/destroy', 'UserLanguageController@destroy');
     });
+    Route::group(['prefix' => 'candidate'], function() {
+        Route::get('/', 'CandidateController@getAll');
+        Route::post('/store', 'CandidateController@store');
+        Route::post('/update', 'CandidateController@update');
+        Route::post('/destroy', 'CandidateController@destroy');
+    });
     Route::group(['prefix' => 'languages'], function() {
         Route::get('/', 'LanguageController@getAll');
     });
