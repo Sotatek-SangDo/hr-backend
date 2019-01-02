@@ -30,7 +30,7 @@ class SkillUserController extends Controller
 
     public function store(Request $request)
     {
-        $result = $this->skillUserService->store($request);
+        $result = $this->skillUserService->store($request['data']);
         if ($result)
             return response()->json(['status'=> true, 'mess' => 'Thành công', 'data' => $result]);
         return response()->json(['status' => false, 'mess' => 'Lỗi server']);
@@ -38,7 +38,7 @@ class SkillUserController extends Controller
 
     public function update(Request $request)
     {
-        $result = $this->skillUserService->update($request);
+        $result = $this->skillUserService->update($request['data']);
         if ($result)
             return response()->json(['status'=> true, 'mess' => 'Thành công', 'data' => $result]);
         return response()->json(['status' => false, 'mess' => 'Lỗi server']);

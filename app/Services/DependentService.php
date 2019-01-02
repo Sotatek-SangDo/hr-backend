@@ -14,6 +14,11 @@ class DependentService
         return Dependent::where('emp_id', $empID)->get();
     }
 
+    public function getEDependents($request)
+    {
+        return Dependent::where('emp_id', $request['id'])->get();
+    }
+
     public function store($data)
     {
         return Dependent::create([
@@ -22,5 +27,21 @@ class DependentService
             'relationship' => $data["relationship"],
             'birthday' => Carbon::createFromFormat('d-m-Y', $data["birthday"])->toDateString()
         ]);
+    }
+
+    public function update($request)
+    {
+        $dependent = Dependent::findOrFail($request['id']);
+        $dependent->full_name = $request['full_name'];
+        $dependent->relationship = $request['relationship'];
+        $dependent->birthday = Carbon::parse($request['birthday'])->format('Y-m-d');
+        $dependent->save();
+        return $dependent;
+    }
+
+    public function destroy($request)
+    {
+        $dependent = Dependent::findOrFail($request['id']);
+        return $dependent->delete();
     }
 }

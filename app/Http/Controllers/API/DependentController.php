@@ -22,39 +22,32 @@ class DependentController extends Controller
         return response()->json($educations);
     }
 
+    public function getEDependents(Request $request)
+    {
+        $dependents = $this->dependentService->getEDependents($request->all());
+        return response()->json($dependents);
+    }
+
     public function store(Request $request)
     {
-        $result = $this->dependentService->store($request->all());
+        $result = $this->dependentService->store($request['data']);
         if ($result)
-            return response()->json(['status' => true]);
-        return response()->json(['status' => false]);
+            return response()->json(['status' => true, 'mess' => 'Thành công', 'data' => $result]);
+        return response()->json(['status' => false, 'mess' => 'Lỗi Server']);
     }
 
     public function update(Request $request)
     {
-        try {
-            $dependent = Dependent::findOrFail($request['id']);
-            $dependent->full_name = $request['full_name'];
-            $dependent->relationship = $request['relationship'];
-            $dependent->birthday = $request['birthday'];
-            $dependent->save();
-            
-            return response()->json(['status' => true]);
-        } catch (Exception $e) {
-             return response()->json(['status' => false]);
-        }
-
+        $dependent = $this->dependentService->update($request['data']);
+        if ($dependent)    
+            return response()->json(['status' => true, 'mess' => 'Thành công', 'data' => $dependent]);
+        return response()->json(['status' => false, 'mess' => 'Lỗi server']);
     }
 
     public function destroy(Request $request)
     {
-        try {
-            $dependent = Dependent::findOrFail($request->id);
-            $dependent->delete();
-            return response()->json(['status' => true]);
-        } catch (Exception $e) {
-            return response()->json(['status' => false]);
-        }
-        
+        $result = $this->dependentService->destroy($request->all());
+            return response()->json(['status' => true, 'mess' => 'Thành công']);
+        return response()->json(['status' => false, 'mess' => 'Lỗi server']);
     }
 }

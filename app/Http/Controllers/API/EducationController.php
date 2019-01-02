@@ -30,7 +30,7 @@ class EducationController extends Controller
 
     public function store(Request $request)
     {
-        $result = $this->educationService->store($request->all());
+        $result = $this->educationService->store($request['data']);
         if ($result)
             return response()->json(['status' => true, 'mess' => 'Thành công', 'data' => $result]);
         return response()->json(['status' => false, 'mess' => 'Lỗi server']);
@@ -38,7 +38,7 @@ class EducationController extends Controller
 
     public function update(Request $request)
     {
-        $edu = $this->educationService->update($request);
+        $edu = $this->educationService->update($request['data']);
         if($edu)
             return response()->json(['status' => true, 'mess' => 'Thành công', 'data' => $edu]);
         return response()->json(['status' => false, 'mess' => 'Lỗi server']);

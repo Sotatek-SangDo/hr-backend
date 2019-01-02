@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use DB;
+use App\Models\Employee;
 
 class CertificationUser extends Model
 {
@@ -25,5 +26,10 @@ class CertificationUser extends Model
     {
         $certification = DB::table('certifications')->where('id', $this->certification_id)->first();
         return $certification ? $certification->name : '';
+    }
+
+    public function employee()
+    {
+        return $this->belongsTo(Employee::class, 'emp_id', 'id');
     }
 }
