@@ -10,6 +10,7 @@
 | contains the "web" middleware group. Now create something great!
 |
 */
+use Carbon\Carbon;
 
 Route::get('/', function () {
     return view('welcome');
@@ -18,3 +19,7 @@ Route::get('/', function () {
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
+
+Route::get('test', function() {
+    return Carbon::parse('05-01-2019')->startOfMonth()->toDateString();
+});

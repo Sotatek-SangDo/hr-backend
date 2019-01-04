@@ -87,6 +87,22 @@ Route::group(['middleware' => 'hr.api'], function () {
         Route::post('/update', 'UserLanguageController@update');
         Route::post('/destroy', 'UserLanguageController@destroy');
     });
+    Route::group(['prefix' => 'insurances'], function() {
+        Route::get('/', 'InsuranceController@getAll');
+        Route::post('/store', 'InsuranceController@store');
+        Route::post('/update', 'InsuranceController@update');
+        Route::post('/destroy', 'InsuranceController@destroy');
+    });
+    Route::group(['prefix' => 'insurance-payment'], function() {
+        Route::get('/', 'InsurancePaymentController@getAll');
+        Route::post('/store', 'InsurancePaymentController@store');
+        Route::post('/update', 'InsurancePaymentController@update');
+    });
+    Route::group(['prefix' => 'ip-employee'], function() {
+        Route::get('/', 'InsuranceEmpPaymentController@getAll');
+        Route::post('/store', 'InsuranceEmpPaymentController@store');
+        Route::post('/update', 'InsuranceEmpPaymentController@update');
+    });
     Route::group(['prefix' => 'languages'], function() {
         Route::get('/', 'LanguageController@getAll');
     });

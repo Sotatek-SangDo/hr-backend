@@ -9,7 +9,7 @@ use App\Services\EmployeeService;
 use Illuminate\Support\Facades\File;
 use App\Services\UploadImageService;
 
-class EmployeeController extends Controller 
+class EmployeeController extends Controller
 {
     private $employeeService;
     private $uploadService;
