@@ -7,6 +7,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Validator;
 use App\User;
 use Illuminate\Support\Facades\Hash;
+use Auth;
 
 class AuthController extends Controller 
 {
@@ -32,5 +33,11 @@ class AuthController extends Controller
             'email' => ['required', 'string', 'email', 'max:255'],
             'password' => ['required', 'string', 'min:6'],
         ]);
+    }
+
+    public function authenticated(Request $request)
+    {
+        $user = Auth::user();
+        return response()->json(json_decode($user));
     }
 }

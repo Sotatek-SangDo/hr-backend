@@ -42,9 +42,9 @@ class authJWT
             }
             Auth::login($user);
         } catch (InvalidTokenException $e) {
-            return response()->json(["message" => $e->getMessage()], 401);
+            return response()->json(["message" => $e->getMessage(), 'error' => "invalid"], 401);
         } catch (CoreException $e) {
-            return response()->json(["message" => $e->getMessage()], 401);
+            return response()->json(["message" => $e->getMessage(), 'error' => "cor"], 401);
         }
 
         return $next($request);

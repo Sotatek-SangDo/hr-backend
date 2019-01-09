@@ -1,7 +1,4 @@
 <?php
-
-header('Access-Control-Allow-Headers:Content-Type, Access-Control-Allow-Headers, Authorization, X-Requested-With,Access-Control-Allow-Origin, X-CSRF-TOKEN');
-header('Access-Control-Allow-Origin: *');
 use Auth;
 /*
 |--------------------------------------------------------------------------
@@ -13,16 +10,14 @@ use Auth;
 | is assigned the "api" middleware group. Enjoy building your API!
 |
 */
-
-Route::get('/private', function (Request $request) {
-    $user = Auth::user();
-    return response()->json(json_decode($user));
-    // return response()->json(["message" => "Hello from a private endpoint! You need to have a valid access token to see this."]);
-})->middleware('jwt');
-
 Route::post('login', 'AuthController@login');
 
-Route::group(['middleware' => 'hr.api'], function () {
+Route::group(['middleware' => 'jwt'], function () {
+     Route::get('/private', function (Request $request) {
+        $user = Auth::user();
+        return response()->json(json_decode($user));
+    });
+    Route::post('/authenticate', 'AuthController@authenticated');
     Route::get('test', function() { return 1; });
     Route::group(['prefix' => 'nationalities'], function() {
         Route::get('/', 'NationalityController@getAll');
