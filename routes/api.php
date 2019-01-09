@@ -1,5 +1,4 @@
 <?php
-use Auth;
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -13,12 +12,7 @@ use Auth;
 Route::post('login', 'AuthController@login');
 
 Route::group(['middleware' => 'jwt'], function () {
-     Route::get('/private', function (Request $request) {
-        $user = Auth::user();
-        return response()->json(json_decode($user));
-    });
     Route::post('/authenticate', 'AuthController@authenticated');
-    Route::get('test', function() { return 1; });
     Route::group(['prefix' => 'nationalities'], function() {
         Route::get('/', 'NationalityController@getAll');
     });
