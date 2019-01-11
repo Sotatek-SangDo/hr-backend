@@ -84,6 +84,29 @@ Route::group(['middleware' => 'jwt'], function () {
         Route::post('/update', 'UserLanguageController@update');
         Route::post('/destroy', 'UserLanguageController@destroy');
     });
+    Route::group(['prefix' => 'candidates'], function() {
+        Route::get('/', 'CandidateController@getAll');
+        Route::post('/store', 'CandidateController@store');
+        Route::post('/update', 'CandidateController@update');
+        Route::post('/destroy', 'CandidateController@destroy');
+    });
+    Route::group(['prefix' => 'applied-jobs-status'], function() {
+        Route::get('/', 'AppiedJobController@getAll');
+        Route::post('/store', 'AppiedJobController@store');
+        Route::post('/update', 'AppiedJobController@update');
+        Route::post('/destroy', 'AppiedJobController@destroy');
+    });
+    Route::group(['prefix' => 'recruitments'], function() {
+        Route::get('/', 'RecruitmentController@getAll');
+        Route::post('/store', 'RecruitmentController@store');
+        Route::post('/update', 'RecruitmentController@update');
+        Route::post('/destroy', 'RecruitmentController@destroy');
+    });
+    Route::group(['prefix' => 'recruitments-plan'], function() {
+        Route::get('/', 'RecruitmentPlanController@getAll');
+        Route::post('/store', 'RecruitmentPlanController@store');
+        Route::post('/update', 'RecruitmentPlanController@update');
+        Route::post('/destroy', 'RecruitmentPlanController@destroy');
     Route::group(['prefix' => 'insurances'], function() {
         Route::get('/', 'InsuranceController@getAll');
         Route::post('/store', 'InsuranceController@store');
