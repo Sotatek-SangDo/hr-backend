@@ -17,47 +17,39 @@ class CertificationUserController extends Controller
         $this->certificationUserService = $certificationUserService;
     }
 
-    public function getAll(Request $request)
+    public function getAll()
     {
-        $certificationUser = $this->certificationUserService->getAll($request->emp_id);
+        $certificationUser = $this->certificationUserService->getAll();
         return response()->json($certificationUser);
+    }
+
+    public function getECertification(Request $request)
+    {
+        $certifications = $this->certificationUserService->getECertification($request);
+        return response()->json($certifications);
     }
 
     public function store(Request $request)
     {
-        $result = $this->certificationUserService->store($request->all());
+        $result = $this->certificationUserService->store($request['data']);
         if ($result)
-            return response()->json(['status' => true]);
-        return response()->json(['status' => false]);
+            return response()->json(['status' => true, 'mess' => 'Thành công', 'data' => $result]);
+        return response()->json(['status' => false, 'mess' => 'Lỗi server']);
     }
 
     public function update(Request $request)
     {
-        try {
-            $certificationUser = CertificationUser::findOrFail($request['id']);
-            $certificationUser->certification_id = $request['certification_id'];
-            $certificationUser->emp_id = $request['emp_id'];
-            $certificationUser->institute = $request['institute'];
-            $certificationUser->granted_on = Carbon::createFromFormat('d-m-Y', $request['granted_on'])->toDateString();
-            $certificationUser->valid_to = Carbon::createFromFormat('d-m-Y', $request['valid_to'])->toDateString();
-            $certificationUser->save();
-            
-            return response()->json(['status' => true]);
-        } catch (Exception $e) {
-             return response()->json(['status' => false]);
-        }
-
+        $result = $this->certificationUserService->update($request['data']);
+        if ($result)
+            return response()->json(['status' => true, 'mess' => 'Thành công', 'data' => $result]);
+        return response()->json(['status' => false, 'mess' => 'Lỗi server']);
     }
 
     public function destroy(Request $request)
     {
-        try {
-            $certificationUser = CertificationUser::findOrFail($request->id);
-            $certificationUser->delete();
-            return response()->json(['status' => true]);
-        } catch (Exception $e) {
-            return response()->json(['status' => false]);
-        }
-        
+        $result = $this->certificationUserService->destroy($request);
+        if ($result)
+            return response()->json(['status'=> true, 'mess' => 'Thành công']);
+        return response()->json(['status' => false, 'mess' => 'Lỗi server']);   
     }
 }

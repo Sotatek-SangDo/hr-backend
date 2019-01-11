@@ -16,45 +16,39 @@ class EmergencyContactController extends Controller
         $this->emergencyContactService = $emergencyContactService;
     }
 
-    public function getAll(Request $request)
+    public function getAll()
     {
-        $emer = $this->emergencyContactService->getAll($request->emp_id);
+        $emer = $this->emergencyContactService->getAll();
         return response()->json($emer);
+    }
+
+    public function getEEmergencyContact(Request $request)
+    {
+        $contact = $this->emergencyContactService->getEEmergencyContact($request->all());
+        return response()->json($contact);
     }
 
     public function store(Request $request)
     {
-        $result = $this->emergencyContactService->store($request->all());
+        $result = $this->emergencyContactService->store($request['data']);
         if ($result)
-            return response()->json(['status' => true]);
-        return response()->json(['status' => false]);
+            return response()->json(['status' => true, 'mess' => 'Thành công', 'data' => $result]);
+        return response()->json(['status' => false, 'mess' => 'Lỗi server']);
     }
 
     public function update(Request $request)
     {
-        try {
-            $emer = EmergencyContact::findOrFail($request['id']);
-            $emer->full_name = $request['full_name'];
-            $emer->relationship = $request['relationship'];
-            $emer->contact_phone = $request['contact_phone'];
-            $emer->save();
-            
-            return response()->json(['status' => true]);
-        } catch (Exception $e) {
-             return response()->json(['status' => false]);
-        }
-
+        $contact =$this->emergencyContactService->update($request['data']);
+        if ($contact)    
+            return response()->json(['status' => true, 'mess' => 'Thành công', 'data' => $contact]);
+        return response()->json(['status' => false, 'mess' => 'Lỗi server']);
     }
 
     public function destroy(Request $request)
     {
-        try {
-            $emer = EmergencyContact::findOrFail($request->id);
-            $emer->delete();
-            return response()->json(['status' => true]);
-        } catch (Exception $e) {
-            return response()->json(['status' => false]);
-        }
-        
+        $result = $this->emergencyContactService->destroy($request);
+        if ($result)
+            return response()->json(['status' => true, 'mess' => 'Thành công']);
+        return response()->json(['status' => false, 'mess' => 'Lỗi server']);
     }
 }

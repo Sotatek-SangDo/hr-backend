@@ -46,7 +46,12 @@ class Employee extends Model
 
     protected $appends = [
         'supervisor_name',
-        'indirect_supervisor_name'
+        'indirect_supervisor_name',
+        'count_skill',
+        'count_edu',
+        'count_certification',
+        'count_lang',
+        'count_contact'
     ];
 
     public function nationality()
@@ -107,6 +112,36 @@ class Employee extends Model
     public function getIndirectSupervisorNameAttribute()
     {
         return $this->getSupervisor($this->indirect_supervisor);
+    }
+
+    public function getCountSkillAttribute()
+    {
+        $count = DB::table('skill_user')->where('emp_id', $this->id)->count();
+        return $count ?: 1;
+    }
+
+    public function getCountEduAttribute()
+    {
+        $count = DB::table('educations')->where('emp_id', $this->id)->count();
+        return $count ?: 1;
+    }
+
+    public function getCountCertificationAttribute()
+    {
+        $count = DB::table('certification_user')->where('emp_id', $this->id)->count();
+        return $count ?: 1;
+    }
+
+    public function getCountLangAttribute()
+    {
+        $count = DB::table('languages_emp')->where('emp_id', $this->id)->count();
+        return $count ?: 1;
+    }
+
+    public function getCountContactAttribute()
+    {
+        $count = DB::table('emergency_contacts')->where('emp_id', $this->id)->count();
+        return $count ?: 1;
     }
 
     private function getSupervisor($id)

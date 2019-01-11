@@ -17,12 +17,17 @@ class SkillUser extends Model
     ];
     
     protected $appends = [
-        'skill',
+        'skill'
     ];
 
     public function getSkillAttribute()
     {
         $skill = DB::table('skills')->where('id', $this->skill_id)->first();
         return $skill ? $skill->skill_name : '';
+    }
+
+    public function employee()
+    {
+        return $this->belongsTo(Employee::class, 'emp_id', 'id');
     }
 }

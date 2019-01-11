@@ -22,6 +22,12 @@ class DepartmentController extends Controller
         return response()->json($departments);
     }
 
+    public function getEDepartment()
+    {
+        $departments = $this->departmentService->getEDepartment();
+        return response()->json($departments);
+    }
+
     public function store(Request $request)
     {
         $result = $this->departmentService->store($request->all());

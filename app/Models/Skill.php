@@ -12,5 +12,5 @@ class Skill extends Model
         'id',
         'skill_name'
     ];
-
+    
 }

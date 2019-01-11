@@ -6,14 +6,18 @@ use DB;
 use Exception;
 use App\Models\Education;
 use Carbon\Carbon;
+use App\Services\BaseService as Base;
 
-class EducationService
+class EducationService extends Base
 {
     public function getAll($empID)
     {
-        return Education::select('educations.*', 'employees.name as name')
+        $educations = Education::with(['employee'])
+                ->select('educations.*', 'employees.name as name')
                 ->join('employees', 'educations.emp_id', '=', 'employees.id')
+                ->orderBy('name')
                 ->get();
+        return $educations;
     }
 
     public function getEmployeeEducation($request)
@@ -38,8 +42,8 @@ class EducationService
         $educationUser->qualification_id = $request['qualification_id'];
         $educationUser->emp_id = $request['emp_id'];
         $educationUser->institute = $request['institute'];
-        $educationUser->started_at = $request['started_at'];
-        $educationUser->ended_at = $request['ended_at'];
+        $educationUser->started_at = Carbon::parse($request['started_at'])->format('Y-m-d');
+        $educationUser->ended_at = Carbon::parse($request['ended_at'])->format('Y-m-d');
         $educationUser->save();
         return $educationUser;
     }

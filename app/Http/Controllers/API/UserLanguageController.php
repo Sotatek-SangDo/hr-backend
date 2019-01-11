@@ -16,48 +16,37 @@ class UserLanguageController extends Controller
         $this->userLanguageService = $userLanguageService;
     }
 
-    public function getAll(Request $request)
+    public function getAll()
     {
-        $userLanguages = $this->userLanguageService->getAll($request->emp_id);
+        $userLanguages = $this->userLanguageService->getAll();
+        return response()->json($userLanguages);
+    }
+
+    public function getELanguage(Request $request)
+    {
+        $userLanguages = $this->userLanguageService->getELanguage($request->all());
         return response()->json($userLanguages);
     }
 
     public function store(Request $request)
     {
-        $result = $this->userLanguageService->store($request->all());
+        $result = $this->userLanguageService->store($request['data']);
         if ($result)
-            return response()->json(['status' => true]);
-        return response()->json(['status' => false]);
+            return response()->json(['status' => true, 'mess' => 'Thành công', 'data' => $result]);
+        return response()->json(['status' => false, 'mess' => 'Lỗi server']);
     }
 
     public function update(Request $request)
     {
-        try {
-            $userLanguages = UserLanguages::findOrFail($request['id']);
-            $userLanguages->lang_id = $request['lang_id'];
-            $userLanguages->emp_id = $request['emp_id'];
-            $userLanguages->listen = $request['listen'];
-            $userLanguages->speak = $request['speak'];
-            $userLanguages->read = $request['read'];
-            $userLanguages->write = $request['write'];
-            $userLanguages->save();
-            
-            return response()->json(['status' => true]);
-        } catch (Exception $e) {
-             return response()->json(['status' => false]);
-        }
-
+        $result = $this->userLanguageService->update($request['data']);    
+            return response()->json(['status' => true, 'mess', 'Thành Công', 'data' => $result]);
+        return response()->json(['status' => false, 'mess' => 'Lỗi server']);
     }
 
     public function destroy(Request $request)
     {
-        try {
-            $userLanguages = UserLanguages::findOrFail($request->id);
-            $userLanguages->delete();
-            return response()->json(['status' => true]);
-        } catch (Exception $e) {
-            return response()->json(['status' => false]);
-        }
-        
+        $result = $this->userLanguageService->destroy($request->all());    
+            return response()->json(['status' => true, 'mess' => 'Thành công']);
+        return response()->json(['status' => false, 'mess' => 'Lỗi server']);
     }
 }
