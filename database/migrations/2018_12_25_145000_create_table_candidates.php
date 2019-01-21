@@ -13,7 +13,7 @@ class CreateTableCandidates extends Migration
      */
     public function up()
     {
-        Schema::create('candidate', function (Blueprint $table) {
+        Schema::create('candidates', function (Blueprint $table) {
             $table->increments('id');
             $table->unsignedInteger('job_id');
             $table->string('email');
@@ -21,7 +21,7 @@ class CreateTableCandidates extends Migration
             $table->enum('gender', ['Nam', 'Nữ', 'Khác']);
             $table->date('birthday');
             $table->string("phonenumber");
-            $table->string("description", 255);
+            $table->longText("description")->nullable();
             $table->timestamps();
         });
     }

@@ -9,22 +9,21 @@ use Carbon\Carbon;
 
 class RecruitmentService
 {
-    public function getAll($empID)
+    public function getAll()
     {
-        return Recruitment::get();
+        return Recruitment::all();
     }
 
-    public function store($data)
+    public function store($request)
     {
         return Recruitment::create([
-            'name' => $data["name"],
-            'job_id' => $data["job_id"],
-            'started_at' => Carbon::createFromFormat('d-m-Y', $data["started_at"])->toDateString(),
-            'ended_at' => Carbon::createFromFormat('d-m-Y', $data["ended_at"])->toDateString(),
-            'status' => $data["status"],
-            'expired_at' => Carbon::createFromFormat('d-m-Y', $data["expired_at"])->toDateString(),
-            'num' => $data["num"],
-            'recruitment_required' => $data["recruitment_required"]
+            'name' => $request["name"],
+            'started_at' => Carbon::createFromFormat('d-m-Y', $request["started_at"])->toDateString(),
+            'ended_at' => Carbon::createFromFormat('d-m-Y', $request["ended_at"])->toDateString(),
+            'status' => $request["status"],
+            'expired_at' => Carbon::createFromFormat('d-m-Y', $request["expired_at"])->toDateString(),
+            'num' => $request["num"],
+            'recruitment_required' => $request["recruitment_required"]
         ]);
     }
 
@@ -32,7 +31,6 @@ class RecruitmentService
     {
         $rec = Recruitment::findOrFail($request['id']);
         $rec->name = $request['name'];
-        $rec->job_id = $request['job_id'];
         $rec->started_at = $request['started_at'];
         $rec->ended_at = $request['ended_at'];
         $rec->status = $request['status'];

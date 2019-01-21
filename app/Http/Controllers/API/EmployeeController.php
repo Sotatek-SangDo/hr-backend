@@ -26,6 +26,12 @@ class EmployeeController extends Controller
         return response()->json($employee);
     }
 
+    public function getEmployee(Request $request)
+    {
+        $employee = $this->employeeService->getEmployee($request);
+        return response()->json($employee);
+    }
+
     public function store(Request $request)
     {
         $path = $this->uploadService->upload($request);

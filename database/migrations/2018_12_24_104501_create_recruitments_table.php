@@ -16,13 +16,12 @@ class CreateRecruitmentsTable extends Migration
         Schema::create('recruitments', function (Blueprint $table) {
             $table->increments('id');
             $table->string('name');
-            $table->unsignedInteger('job_id');
             $table->date('started_at');
             $table->date('ended_at');
             $table->string('status');
             $table->date('expired_at');
             $table->integer('num');
-            $table->longText('recruitment_required');
+            $table->longText('recruitment_required')->nullable();
             $table->softDeletes();
             $table->timestamps();
         });

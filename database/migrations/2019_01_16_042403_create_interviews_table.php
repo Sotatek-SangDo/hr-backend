@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateTableAppliedJobsStatus extends Migration
+class CreateInterviewsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,11 +13,13 @@ class CreateTableAppliedJobsStatus extends Migration
      */
     public function up()
     {
-        Schema::create('applied_jobs_status', function (Blueprint $table) {
+        Schema::create('interviews', function (Blueprint $table) {
             $table->increments('id');
             $table->unsignedInteger('candidate_id');
-            $table->unsignedInteger('recruitment_id');
-            $table->enum('status', ['Ứng tuyển', 'Chờ phỏng vấn', 'Nhận', 'Từ chối']);
+            $table->datetime('started_at');
+            $table->datetime('ended_at');
+            $table->string('address');
+            $table->unsignedInteger('interviewer');
             $table->timestamps();
         });
     }
@@ -29,6 +31,8 @@ class CreateTableAppliedJobsStatus extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('applied_jobs_status');
+        Schema::table('interviews', function (Blueprint $table) {
+            //
+        });
     }
 }

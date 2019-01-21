@@ -17,7 +17,6 @@ class EmployeeService
     public function store($data)
     {
         $params = $data['emp'];
-
         return Employee::create([
             'name' => $params["full_name"],
             'work_email' => $params["email"],
@@ -74,5 +73,22 @@ class EmployeeService
     public function getEmpFullInfo()
     {
         return Employee::with(['nationality', 'employeeStatus', 'payGrade', 'job', 'certifications', 'skills', 'educations', 'languages', 'emergencyContracts'])->get();
+    }
+
+    public function getEmployee($request)
+    {
+        logger($request['id']);
+        return Employee::with([
+            'nationality',
+            'employeeStatus',
+            'payGrade',
+            'job',
+            'certifications',
+            'skills',
+            'educations',
+            'languages',
+            'emergencyContracts'
+        ])->where('id', $request['id'])
+        ->first();
     }
 }
