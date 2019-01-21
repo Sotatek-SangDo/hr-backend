@@ -3,19 +3,25 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use App\Models\Recruitment;
 
 class AppliedJobStatus extends Model
 {
-	const PENDING = "pending";
-	const APPLIED = "applied";
-	const REJECT = "reject";
-	
-    protected $table = "applied_job_status";
+	const WAITING = "Chờ phỏng vấn";
+	const APPLIED = "Ứng tuyển";
+    const REJECT = "Từ chối";
+    const OK = "Nhận";
+    
+    protected $table = "applied_jobs_status";
 
     protected $fillable = [
         'candidate_id',
-        'emp_id',
-        'job_id',
+        'recruitment_id',
         'status',
     ];
+
+    public function recruitment()
+    {
+        return $this->hasOne(Recruitment::class, 'id', 'recruitment_id');
+    }
 }

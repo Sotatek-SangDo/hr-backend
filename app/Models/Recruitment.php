@@ -10,7 +10,6 @@ class Recruitment extends Model
 
     protected $fillable = [
     	'name',
-        'job_id',
         'started_at',
         'ended_at',
         'status',

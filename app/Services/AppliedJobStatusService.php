@@ -17,10 +17,9 @@ class AppliedJobStatusService
     public function store($data)
     {
         return AppliedJobStatus::create([
-            'candidate_id' => $data["candidate_id"],
-            'emp_id' => $data["emp_id"],
-            'job_id' => $data["job_id"],
-            'status' => $data["status"]
+            'candidate_id' => $data['candidate_id'],
+            'recruitment_id' => $data['recruitment_id'],
+            'status' => AppliedJobStatus::APPLIED
         ]);
     }
 

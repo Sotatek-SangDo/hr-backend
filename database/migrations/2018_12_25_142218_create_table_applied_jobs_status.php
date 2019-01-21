@@ -16,9 +16,8 @@ class CreateTableAppliedJobsStatus extends Migration
         Schema::create('applied_jobs_status', function (Blueprint $table) {
             $table->increments('id');
             $table->unsignedInteger('candidate_id');
-            $table->unsignedInteger('emp_id')->nullable();
-            $table->unsignedInteger('job_id');
-            $table->string('status');
+            $table->unsignedInteger('recruitment_id');
+            $table->enum('status', ['Ứng tuyển', 'Chờ phỏng vấn', 'Nhận', 'Từ chối']);
             $table->timestamps();
         });
     }

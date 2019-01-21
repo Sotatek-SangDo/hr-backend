@@ -1,7 +1,4 @@
 <?php
-
-header('Access-Control-Allow-Headers:Content-Type, Access-Control-Allow-Headers, Authorization, X-Requested-With,Access-Control-Allow-Origin, X-CSRF-TOKEN');
-header('Access-Control-Allow-Origin: *');
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -14,13 +11,14 @@ header('Access-Control-Allow-Origin: *');
 */
 Route::post('login', 'AuthController@login');
 
-Route::group(['middleware' => 'hr.api'], function () {
-    Route::get('test', function() { return 1; });
+Route::group(['middleware' => 'jwt'], function () {
+    Route::post('/authenticate', 'AuthController@authenticated');
     Route::group(['prefix' => 'nationalities'], function() {
         Route::get('/', 'NationalityController@getAll');
     });
     Route::group(['prefix' => 'employees'], function() {
         Route::get('/', 'EmployeeController@getAll');
+        Route::get('/get-employee', 'EmployeeController@getEmployee');
         Route::post('/store', 'EmployeeController@store');
         Route::post('/update', 'EmployeeController@update');
         Route::get('/full-info', 'EmployeeController@getEmpFullInfo');
@@ -89,6 +87,8 @@ Route::group(['middleware' => 'hr.api'], function () {
     });
     Route::group(['prefix' => 'candidates'], function() {
         Route::get('/', 'CandidateController@getAll');
+        Route::get('get-candidate-recruitment', 'CandidateController@getCandidateByRecruitment');
+        Route::post('import-data', 'CandidateController@importExcelData');
         Route::post('/store', 'CandidateController@store');
         Route::post('/update', 'CandidateController@update');
         Route::post('/destroy', 'CandidateController@destroy');
@@ -105,11 +105,18 @@ Route::group(['middleware' => 'hr.api'], function () {
         Route::post('/update', 'RecruitmentController@update');
         Route::post('/destroy', 'RecruitmentController@destroy');
     });
+    Route::group(['prefix' => 'interviews'], function() {
+        Route::get('/', 'InterviewController@getAll');
+        Route::post('/store', 'InterviewController@store');
+        Route::post('/update', 'InterviewController@update');
+    });
     Route::group(['prefix' => 'recruitments-plan'], function() {
         Route::get('/', 'RecruitmentPlanController@getAll');
         Route::post('/store', 'RecruitmentPlanController@store');
         Route::post('/update', 'RecruitmentPlanController@update');
         Route::post('/destroy', 'RecruitmentPlanController@destroy');
+    });
+
     Route::group(['prefix' => 'insurances'], function() {
         Route::get('/', 'InsuranceController@getAll');
         Route::post('/store', 'InsuranceController@store');

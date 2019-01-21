@@ -5,7 +5,7 @@ namespace App\Http\Controllers\API;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Models\Recruitment;
-use App\Service\RecruitmentService;
+use App\Services\RecruitmentService;
 
 class RecruitmentController extends Controller
 {
@@ -16,7 +16,7 @@ class RecruitmentController extends Controller
         $this->recruitmentService = $recruitmentService;
     }
 
-    public function getAll(Request $request)
+    public function getAll()
     {
         $recruitments = $this->recruitmentService->getAll();
         return response()->json($recruitments);
@@ -24,7 +24,7 @@ class RecruitmentController extends Controller
 
     public function store(Request $request)
     {
-        $result = $this->recruitmentService->store($request->all());
+        $result = $this->recruitmentService->store($request['data']);
         if ($result)
             return response()->json(['status' => true, 'mess' => 'Thành công', 'data' => $result]);
         return response()->json(['status' => false, 'mess' => 'Lỗi server']);

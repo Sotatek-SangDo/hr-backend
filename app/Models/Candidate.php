@@ -3,13 +3,15 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use App\Models\Job;
+use App\Models\AppliedJobStatus;
 
 class Candidate extends Model
 {
-    protected $table = "candidate";
+    protected $table = "candidates";
 
     protected $fillable = [
-    	'job_id',
+        'job_id',
         'email',
         'name',
         'gender',
@@ -17,4 +19,19 @@ class Candidate extends Model
         'phonenumber',
         'description'
     ];
+
+    protected $appends = [
+        'job_name'
+    ];
+
+    public function getJobNameAttribute()
+    {
+        $job = Job::findOrFail($this->job_id);
+        return $job ? $job->title : '';
+    }
+
+    public function appliedJobStatus()
+    {
+        return $this->hasOne(AppliedJobStatus::class, 'candidate_id', 'id');
+    }
 }
