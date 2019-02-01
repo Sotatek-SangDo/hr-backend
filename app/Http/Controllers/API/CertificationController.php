@@ -3,21 +3,13 @@
 namespace App\Http\Controllers\API;
 
 use Illuminate\Http\Request;
-use App\Http\Controllers\Controller;
 use App\Services\CertificationService;
+use App\Http\Controllers\API\BaseController;
 
-class CertificationController extends Controller
+class CertificationController extends BaseController
 {
-    private $certificationService;
-
     public function __construct(CertificationService $certificationService)
     {
-        $this->certificationService = $certificationService;
-    }
-
-    public function getAll()
-    {
-        $certifications = $this->certificationService->getAll();
-        return response()->json($certifications);
+        $this->service = $certificationService;
     }
 }

@@ -6,47 +6,12 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Models\Recruitment;
 use App\Services\RecruitmentService;
+use App\Http\Controllers\API\BaseController;
 
 class RecruitmentController extends Controller
 {
-    private $recruitmentService;
-
     public function __construct(RecruitmentService $recruitmentService)
     {
-        $this->recruitmentService = $recruitmentService;
-    }
-
-    public function getAll()
-    {
-        $recruitments = $this->recruitmentService->getAll();
-        return response()->json($recruitments);
-    }
-
-    public function store(Request $request)
-    {
-        $result = $this->recruitmentService->store($request['data']);
-        if ($result)
-            return response()->json(['status' => true, 'mess' => 'Thành công', 'data' => $result]);
-        return response()->json(['status' => false, 'mess' => 'Lỗi server']);
-    }
-
-    public function update(Request $request)
-    {
-        $recruitment = $this->recruitmentService->update($request);
-        if($recruitment)
-            return response()->json(['status' => true, 'mess' => 'Thành công', 'data' => $recruitment]);
-        return response()->json(['status' => false, 'mess' => 'Lỗi server']);
-    }
-
-    public function destroy(Request $request)
-    {
-        try {
-            $recruitment = Candidate::findOrFail($request->id);
-            $recruitment->delete();
-            return response()->json(['status' => true]);
-        } catch (Exception $e) {
-            return response()->json(['status' => false]);
-        }
-        
+        $this->service = $recruitmentService;
     }
 }

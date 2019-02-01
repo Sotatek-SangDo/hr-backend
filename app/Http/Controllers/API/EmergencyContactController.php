@@ -6,49 +6,18 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Services\EmergencyContactService;
 use App\Models\EmergencyContact;
+use App\Http\Controllers\API\BaseController;
 
-class EmergencyContactController extends Controller
+class EmergencyContactController extends BaseController
 {
-    private $emergencyContactService;
-
     public function __construct(EmergencyContactService $emergencyContactService)
     {
-        $this->emergencyContactService = $emergencyContactService;
-    }
-
-    public function getAll()
-    {
-        $emer = $this->emergencyContactService->getAll();
-        return response()->json($emer);
+        $this->service = $emergencyContactService;
     }
 
     public function getEEmergencyContact(Request $request)
     {
-        $contact = $this->emergencyContactService->getEEmergencyContact($request->all());
+        $contact = $this->service->getEEmergencyContact($request->all());
         return response()->json($contact);
-    }
-
-    public function store(Request $request)
-    {
-        $result = $this->emergencyContactService->store($request['data']);
-        if ($result)
-            return response()->json(['status' => true, 'mess' => 'Thành công', 'data' => $result]);
-        return response()->json(['status' => false, 'mess' => 'Lỗi server']);
-    }
-
-    public function update(Request $request)
-    {
-        $contact =$this->emergencyContactService->update($request['data']);
-        if ($contact)    
-            return response()->json(['status' => true, 'mess' => 'Thành công', 'data' => $contact]);
-        return response()->json(['status' => false, 'mess' => 'Lỗi server']);
-    }
-
-    public function destroy(Request $request)
-    {
-        $result = $this->emergencyContactService->destroy($request);
-        if ($result)
-            return response()->json(['status' => true, 'mess' => 'Thành công']);
-        return response()->json(['status' => false, 'mess' => 'Lỗi server']);
     }
 }

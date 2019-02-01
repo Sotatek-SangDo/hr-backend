@@ -7,49 +7,18 @@ use App\Http\Controllers\Controller;
 use App\Services\CertificationUserService;
 use App\Models\CertificationUser;
 use Carbon\Carbon;
+use App\Http\Controllers\API\BaseController;
 
-class CertificationUserController extends Controller
+class CertificationUserController extends BaseController
 {
-    private $certificationUserService;
-
     public function __construct(CertificationUserService $certificationUserService)
     {
-        $this->certificationUserService = $certificationUserService;
-    }
-
-    public function getAll()
-    {
-        $certificationUser = $this->certificationUserService->getAll();
-        return response()->json($certificationUser);
+        $this->service = $certificationUserService;
     }
 
     public function getECertification(Request $request)
     {
-        $certifications = $this->certificationUserService->getECertification($request);
+        $certifications = $this->service->getECertification($request);
         return response()->json($certifications);
-    }
-
-    public function store(Request $request)
-    {
-        $result = $this->certificationUserService->store($request['data']);
-        if ($result)
-            return response()->json(['status' => true, 'mess' => 'Thành công', 'data' => $result]);
-        return response()->json(['status' => false, 'mess' => 'Lỗi server']);
-    }
-
-    public function update(Request $request)
-    {
-        $result = $this->certificationUserService->update($request['data']);
-        if ($result)
-            return response()->json(['status' => true, 'mess' => 'Thành công', 'data' => $result]);
-        return response()->json(['status' => false, 'mess' => 'Lỗi server']);
-    }
-
-    public function destroy(Request $request)
-    {
-        $result = $this->certificationUserService->destroy($request);
-        if ($result)
-            return response()->json(['status'=> true, 'mess' => 'Thành công']);
-        return response()->json(['status' => false, 'mess' => 'Lỗi server']);   
     }
 }

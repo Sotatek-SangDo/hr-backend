@@ -5,19 +5,12 @@ namespace App\Http\Controllers\API;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Services\LanguageService;
+use App\Http\Controllers\API\BaseController;
 
-class LanguageController extends Controller
+class LanguageController extends BaseController
 {
-    private $languageService;
-
     public function __construct(LanguageService $languageService)
     {
-        $this->languageService = $languageService;
-    }
-
-    public function getAll()
-    {
-        $languages = $this->languageService->getAll();
-        return response()->json($languages);
+        $this->service = $languageService;
     }
 }

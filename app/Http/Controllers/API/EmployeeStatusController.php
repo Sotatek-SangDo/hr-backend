@@ -6,19 +6,12 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Validator;
 use App\Services\EmployeeStatusService;
+use App\Http\Controllers\API\BaseController;
 
-class EmployeeStatusController extends Controller 
+class EmployeeStatusController extends BaseController
 {
-    private $employeeStatusService;
-
     public function __construct(EmployeeStatusService $employeeStatusService)
     {
-        $this->employeeStatusService = $employeeStatusService;
-    }
-
-    public function getAll()
-    {
-        $status = $this->employeeStatusService->getAll();
-        return response()->json($status);
+        $this->service = $employeeStatusService;
     }
 }

@@ -19,7 +19,7 @@ class Employee extends Model
 {
     protected $table = 'employees';
 
-    protected $fillable = [
+    public $fillable = [
         'name',
         'work_email',
         'avatar',

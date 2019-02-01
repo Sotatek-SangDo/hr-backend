@@ -9,16 +9,8 @@ use App\Services\NationalityService;
 
 class NationalityController extends Controller 
 {
-    private $nationalityService;
-
     public function __construct(NationalityService $nationalityService)
     {
-        $this->nationalityService = $nationalityService;
-    }
-
-    public function getAll()
-    {
-        $nationalities = $this->nationalityService->getAll();
-        return response()->json($nationalities);
+        $this->service = $nationalityService;
     }
 }

@@ -11,7 +11,7 @@
 */
 Route::post('login', 'AuthController@login');
 
-Route::group(['middleware' => 'jwt'], function () {
+Route::group(['prefix' => ''], function () {
     Route::post('/authenticate', 'AuthController@authenticated');
     Route::group(['prefix' => 'nationalities'], function() {
         Route::get('/', 'NationalityController@getAll');
@@ -141,5 +141,21 @@ Route::group(['middleware' => 'jwt'], function () {
     });
     Route::group(['prefix' => 'certifications'], function() {
         Route::get('/', 'CertificationController@getAll');
+    });
+    Route::post('routers/dynamic', function() {
+        return 1;
+        return json_encode([
+            [
+                'component' => 'syncEmployee',
+                'children' => [
+                    [
+                        'component' => 'childSyncEmployee'
+                    ],
+                    [
+                        'component' => 'addEmployee'
+                    ]
+                ]
+            ]
+        ]);
     });
 });

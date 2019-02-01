@@ -6,19 +6,12 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Validator;
 use App\Services\SkillService;
+use App\Http\Controllers\API\BaseController;
 
-class SkillController extends Controller 
+class SkillController extends BaseController
 {
-    private $skillUserService;
-
     public function __construct(SkillService $skillService)
     {
-        $this->skillService = $skillService;
-    }
-
-    public function getAll()
-    {
-        $skills = $this->skillService->getAll();
-        return response()->json($skills);
+        $this->service = $skillService;
     }
 }

@@ -5,16 +5,17 @@ namespace App\Services;
 use DB;
 use Exception;
 use App\Models\Skill;
+use App\Services\BaseService as Base;
 
-class SkillService
+class SkillService extends Base
 {
-    public function getAll()
+    public function __construct(Skill $model)
     {
-        return Skill::all();
+        $this->model = $model;
     }
 
-    public function store($request)
+    public function getAll()
     {
-        
+        return $this->model->all();
     }
 }

@@ -9,9 +9,14 @@ use App\Services\BaseService as Base;
 
 class SkillUserService extends Base
 {
+    public function __construct(SkillUser $model)
+    {
+        $this->model = $model;
+    }
+
     public function getAll()
     {
-        $userSkills = SkillUser::with(['employee'])
+        $userSkills = $this->model->with(['employee'])
                 ->select('skill_user.*', 'employees.name as name')
                 ->join('employees', 'skill_user.emp_id', '=', 'employees.id')
                 ->orderBy('name', 'DESC')
@@ -21,33 +26,9 @@ class SkillUserService extends Base
 
     public function getEmpSkill($request)
     {
-        return SkillUser::select('skill_user.id as id', 'emp_id', 'skill_id', 'detail', 'employees.name as name')
+        return $this->model->select('skill_user.id as id', 'emp_id', 'skill_id', 'detail', 'employees.name as name')
                 ->join('employees', 'skill_user.emp_id', '=', 'employees.id')
                 ->where('emp_id', $request['id'])
                 ->get();
-    }
-
-    public function store($request)
-    {
-        return SkillUser::create([
-            'emp_id' => $request['emp_id'],
-            'skill_id' => $request['skill_id'],
-            'detail' => $request['detail']
-        ]);
-    }
-
-    public function update($request)
-    {
-        $skillUser = SkillUser::findOrFail($request['id']);
-        $skillUser->skill_id = $request['skill_id'];
-        $skillUser->detail = $request['detail'];
-        $skillUser->save();
-        return $skillUser;
-    }
-
-    public function destroy($request)
-    {
-        $skillUser = SkillUser::findOrFail($request->id);
-        return $skillUser->delete();
     }
 }
