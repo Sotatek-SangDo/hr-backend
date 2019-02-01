@@ -7,7 +7,7 @@ use App\Http\Controllers\API\BaseController;
 use App\Services\DepartmentService;
 use App\Http\Requests\DepartmentsRequest;
 
-class DepartmentController extends Controller 
+class DepartmentController extends BaseController
 {
     public function __construct(DepartmentService $departmentService)
     {

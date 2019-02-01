@@ -17,20 +17,20 @@ class BaseController extends Controller
 
     public function store(Request $request)
     {
-        $results = $this->service->store($request);
-        result $this->dataResponse($result);
+        $result = $this->service->store($request);
+        return $this->dataResponse($result);
     }
 
     public function update(Request $request)
     {
-        $results = $this->service->update($request);
-        result $this->dataResponse($result);
+        $result = $this->service->update($request);
+        return $this->dataResponse($result);
     }
 
     public function destroy(Request $request)
     {
-        $results = $this->service->destroy($request);
-        result $this->dataResponse($result);
+        $result = $this->service->destroy($request);
+        return $this->dataResponse($result);
     }
 
     public function dataResponse($result)

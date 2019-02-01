@@ -92,6 +92,11 @@ class BaseService
         return $this->baseStore($request);
     }
 
+    public function update($request)
+    {
+        return $this->baseUpdate($request);
+    }
+
     public function destroy($request)
     {
         $removeItem = $this->model->findOrFail($this->getID($request));

@@ -48,6 +48,8 @@ Route::group(['prefix' => ''], function () {
     Route::group(['prefix' => 'departments'], function() {
         Route::get('/', 'DepartmentController@getAll');
         Route::post('/store', 'DepartmentController@store');
+        Route::post('update', 'DepartmentController@update');
+        Route::post('destroy', 'DepartmentController@destroy');
         Route::get('get-eDepartment', 'DepartmentController@getEDepartment');
     });
     Route::group(['prefix' => 'educations'], function() {
@@ -143,7 +145,6 @@ Route::group(['prefix' => ''], function () {
         Route::get('/', 'CertificationController@getAll');
     });
     Route::post('routers/dynamic', function() {
-        return 1;
         return json_encode([
             [
                 'component' => 'syncEmployee',
