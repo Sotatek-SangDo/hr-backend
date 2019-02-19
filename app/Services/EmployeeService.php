@@ -26,15 +26,21 @@ class EmployeeService extends Base
     public function update($params)
     {
         $request = $params['request'];
-        if ($parmas['avatar']) {
+        if ($params['avatar']) {
             $this->avatar = $params['avatar'];
         }
         return $this->baseUpdate($request);
     }
 
-    public function getEmpFullInfo()
+    public function getEmpFullInfo($request)
     {
-        return Employee::with(['nationality', 'employeeStatus', 'payGrade', 'job', 'certifications', 'skills', 'educations', 'languages', 'emergencyContracts'])->get();
+        $query = $this->model->with(['nationality', 'employeeStatus', 'payGrade', 'job', 'certifications', 'skills', 'educations', 'languages', 'emergencyContracts']);
+        return $this->basePaginate($request, $query);
+    }
+
+    public function getList()
+    {
+        return $this->model->all();
     }
 
     public function getEmployee($request)

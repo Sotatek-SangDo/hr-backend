@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 use App\Models\Job;
 use App\Models\AppliedJobStatus;
+use App\Models\Recruitment;
 
 class Candidate extends Model
 {

@@ -14,7 +14,7 @@ class SkillUserService extends Base
         $this->model = $model;
     }
 
-    public function getAll()
+    public function getAll($request)
     {
         $userSkills = $this->model->with(['employee'])
                 ->select('skill_user.*', 'employees.name as name')

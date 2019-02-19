@@ -22,13 +22,13 @@ class EmployeeController extends BaseController
 
     public function getEmployee(Request $request)
     {
-        $employee = $this->employeeService->getEmployee($request);
+        $employee = $this->service->getEmployee($request);
         return response()->json($employee);
     }
 
     public function store(Request $request)
     {
-        $path = $this->hasFile($request) ? $this->uploadService->upload($request) : '';
+        $path = $this->service->hasFile($request) ? $this->uploadService->upload($request) : '';
         if (!$path) return response()->json(['status' => false]); 
         $params = [
             'request' => $request,
@@ -42,9 +42,9 @@ class EmployeeController extends BaseController
 
     public function update(Request $request)
     {
-        $path = $this->hasFile($request) ? $this->uploadService->upload($request) : '';
+        $path = $this->service->hasFile($request) ? $this->uploadService->upload($request) : '';
         $params = [
-            'request' => $request->all(),
+            'request' => $request,
             'avatar' => $path
         ];
         $result = $this->service->update($params);
@@ -53,9 +53,9 @@ class EmployeeController extends BaseController
         return response()->json(['status' => false]);
     }
 
-    public function getEmpFullInfo()
+    public function getEmpFullInfo(Request $request)
     {
-        $employees = $this->service->getEmpFullInfo();
+        $employees = $this->service->getEmpFullInfo($request);
         return response()->json($employees);
     }
 }

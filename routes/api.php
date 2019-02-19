@@ -19,12 +19,14 @@ Route::group(['prefix' => ''], function () {
     Route::group(['prefix' => 'employees'], function() {
         Route::get('/', 'EmployeeController@getAll');
         Route::get('/get-employee', 'EmployeeController@getEmployee');
+        Route::get('get-list', 'EmployeeController@getList');
         Route::post('/store', 'EmployeeController@store');
         Route::post('/update', 'EmployeeController@update');
         Route::get('/full-info', 'EmployeeController@getEmpFullInfo');
     });
     Route::group(['prefix' => 'employee-status'], function() {
         Route::get('/', 'EmployeeStatusController@getAll');
+        Route::get('get-list', 'EmployeeStatusController@getList');
     });
     Route::group(['prefix' => 'jobs'], function() {
         Route::get('/', 'JobController@getAll');
@@ -51,6 +53,7 @@ Route::group(['prefix' => ''], function () {
         Route::post('update', 'DepartmentController@update');
         Route::post('destroy', 'DepartmentController@destroy');
         Route::get('get-eDepartment', 'DepartmentController@getEDepartment');
+        Route::get('/get-list', 'DepartmentController@getList');
     });
     Route::group(['prefix' => 'educations'], function() {
         Route::get('/', 'EducationController@getAll');
@@ -88,9 +91,8 @@ Route::group(['prefix' => ''], function () {
         Route::post('/destroy', 'UserLanguageController@destroy');
     });
     Route::group(['prefix' => 'candidates'], function() {
-        Route::get('/', 'CandidateController@getAll');
-        Route::get('get-candidate-recruitment', 'CandidateController@getCandidateByRecruitment');
-        Route::post('import-data', 'CandidateController@importExcelData');
+        Route::get('/', 'CandidateController@getList');
+        Route::get('get-candidate-recruitment', 'CandidateController@getAll');
         Route::post('/store', 'CandidateController@store');
         Route::post('/update', 'CandidateController@update');
         Route::post('/destroy', 'CandidateController@destroy');
@@ -103,12 +105,14 @@ Route::group(['prefix' => ''], function () {
     });
     Route::group(['prefix' => 'recruitments'], function() {
         Route::get('/', 'RecruitmentController@getAll');
+        Route::get('list', 'RecruitmentController@getList');
         Route::post('/store', 'RecruitmentController@store');
         Route::post('/update', 'RecruitmentController@update');
         Route::post('/destroy', 'RecruitmentController@destroy');
     });
     Route::group(['prefix' => 'interviews'], function() {
-        Route::get('/', 'InterviewController@getAll');
+        Route::get('/', 'InterviewController@getList');
+        Route::get('all', 'InterviewController@getInterviews');
         Route::post('/store', 'InterviewController@store');
         Route::post('/update', 'InterviewController@update');
     });
@@ -127,6 +131,7 @@ Route::group(['prefix' => ''], function () {
     });
     Route::group(['prefix' => 'insurance-payment'], function() {
         Route::get('/', 'InsurancePaymentController@getAll');
+        Route::get('get-list', 'InsurancePaymentController@getList');
         Route::post('/store', 'InsurancePaymentController@store');
         Route::post('/update', 'InsurancePaymentController@update');
     });
@@ -134,6 +139,7 @@ Route::group(['prefix' => ''], function () {
         Route::get('/', 'InsuranceEmpPaymentController@getAll');
         Route::post('/store', 'InsuranceEmpPaymentController@store');
         Route::post('/update', 'InsuranceEmpPaymentController@update');
+        Route::post('destroy', 'InsuranceEmpPaymentController@destroy');
     });
     Route::group(['prefix' => 'languages'], function() {
         Route::get('/', 'LanguageController@getAll');
@@ -144,19 +150,5 @@ Route::group(['prefix' => ''], function () {
     Route::group(['prefix' => 'certifications'], function() {
         Route::get('/', 'CertificationController@getAll');
     });
-    Route::post('routers/dynamic', function() {
-        return json_encode([
-            [
-                'component' => 'syncEmployee',
-                'children' => [
-                    [
-                        'component' => 'childSyncEmployee'
-                    ],
-                    [
-                        'component' => 'addEmployee'
-                    ]
-                ]
-            ]
-        ]);
-    });
+    Route::post('routers/dynamic', 'PermissionController@index');
 });

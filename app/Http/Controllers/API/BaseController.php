@@ -46,5 +46,10 @@ class BaseController extends Controller
             'mess' => 'Lỗi server'
         ]);
     }
+
+    public function getList()
+    {
+        return $this->service->getList();
+    }
 }
 

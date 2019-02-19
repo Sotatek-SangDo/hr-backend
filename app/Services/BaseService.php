@@ -4,6 +4,7 @@ namespace App\Services;
 
 use App\Consts;
 use Carbon\Carbon;
+use Illuminate\Http\Request;
 
 class BaseService
 {
@@ -16,7 +17,8 @@ class BaseService
         return [
             'sortType' => trim(substr($request['sort'], 0, 1)) === Consts::PLUS ? 'DESC' : 'ASC',
             'sort' => substr($request['sort'], 1),
-            'limited' => $request['limit'] ? $request['limit'] : Consts::LIMIT
+            'limited' => $request['limit'] ? $request['limit'] : Consts::LIMIT,
+            'title' => isset($request['title']) ? $request['title'] : ''
         ];
     }
 
@@ -27,8 +29,11 @@ class BaseService
         if (!$query) {
             $baseQuery = $this->model;
         }
-        return $baseQuery->orderBy($params['sort'], $params['sortType'])
-                ->paginate($params['limited']);
+        $strQuery = $baseQuery->orderBy($params['sort'], $params['sortType']);
+        if ($params['title']) {
+            $strQuery = $baseQuery->orderBy($params['sort'], $params['sortType'])->where('name', 'LIKE', '%' . $params['title'] . '%');
+        }
+        return $strQuery->paginate($params['limited']);
     }
 
     public function getID($request)
@@ -39,7 +44,11 @@ class BaseService
     public function baseUpdate($request)
     {
         $params = $this->queryParams($request);
-        return $this->model->where('id', $this->getID($request))->update($params);
+        $result = $this->model->where('id', $this->getID($request))->update($params);
+        if (!$result) {
+            return $result;
+        }
+        return $this->model->find($this->getID($request));
     }
 
     public function queryParams($request)
@@ -49,7 +58,13 @@ class BaseService
         $params = $this->getParams($request, $except);
         if ($dateFields) {
             collect($dateFields)->each(function($item, $key) use (&$params) {
-                $params[$item]  = Carbon::createFromFormat('Y-m-d', $params[$item])->toDateString();
+                $date = '';
+                try {
+                    $date = Carbon::createFromFormat('Y-m-d', $params[$item])->toDateString();
+                } catch(\Exception $e) {
+                    $date = Carbon::createFromFormat('Y-m-d H:i', $params[$item])->toDateTimeString();
+                }
+                $params[$item] = $date;
             });
         }
         if ($except && isset($except['value'])) {
@@ -106,5 +121,10 @@ class BaseService
     public function getAll($request)
     {
         return $this->basePaginate($request);
+    }
+
+    public function getList()
+    {
+        return $this->model->all();
     }
 }

@@ -8,7 +8,7 @@ use App\Models\Recruitment;
 use App\Services\RecruitmentService;
 use App\Http\Controllers\API\BaseController;
 
-class RecruitmentController extends Controller
+class RecruitmentController extends BaseController
 {
     public function __construct(RecruitmentService $recruitmentService)
     {

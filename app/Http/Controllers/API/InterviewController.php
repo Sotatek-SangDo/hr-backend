@@ -8,7 +8,7 @@ use App\Models\Candidate;
 use App\Services\InterviewService;
 use App\Http\Controllers\API\BaseController;
 
-class InterviewController extends Controller
+class InterviewController extends BaseController
 {
     public function __construct(InterviewService $interviewService)
     {
@@ -21,5 +21,11 @@ class InterviewController extends Controller
         if ($candidates)
             return response()->json(['data' => $candidates, 'mess' => "thanh cong"]);
         return response()->json(['mess' => "Loi server"], 500);
+    }
+
+    public function getInterviews()
+    {
+        $interviews = $this->service->getInterviews();
+        return response()->json($interviews);
     }
 }

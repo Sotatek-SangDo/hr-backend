@@ -24,4 +24,13 @@ class AppliedJobStatusService extends Base
             'status' => AppliedJobStatus::APPLIED
         ]);
     }
+
+    public function update($data)
+    {
+        $apply = AppliedJobStatus::where('candidate_id', $data['candidate_id'])
+            ->first();
+        $apply->recruitment_id = $data['recruitment_id'];
+        $apply->save();
+        return $apply;
+    }
 }

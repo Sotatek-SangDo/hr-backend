@@ -14,7 +14,7 @@ class SkillService extends Base
         $this->model = $model;
     }
 
-    public function getAll()
+    public function getAll($request)
     {
         return $this->model->all();
     }

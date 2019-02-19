@@ -15,7 +15,7 @@ class UserLanguageService extends Base
         $this->model = $model;
     }
 
-    public function getAll()
+    public function getAll($request)
     {
         $langs = $this->model->with(['employee'])
                 ->select('languages_emp.*', 'employees.name as name')

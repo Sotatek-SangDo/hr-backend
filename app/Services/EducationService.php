@@ -17,7 +17,7 @@ class EducationService extends Base
 
     public function getEmployeeEducation($request)
     {
-        return Education::where('emp_id', $request["id"])->get();
+        return $this->model->where('emp_id', $request["id"])->get();
     }
 
     public function dateFields()

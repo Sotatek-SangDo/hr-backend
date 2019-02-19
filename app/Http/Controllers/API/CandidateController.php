@@ -13,10 +13,4 @@ class CandidateController extends BaseController
     {
         $this->service = $candidateService;
     }
-
-    public function getCandidateByRecruitment(Request $request)
-    {
-        $candidates = $this->service->getCandidateByRecruitment($request->all());
-        return response()->json($candidates);
-    }
 }

@@ -14,7 +14,7 @@ class EmergencyContactService extends Base
         $this->model = $model;
     }
 
-    public function getAll()
+    public function getAll($request)
     {
         $contacts = $this->model->with(['employee'])
                 ->select('emergency_contacts.*', 'employees.name as name')

@@ -25,4 +25,9 @@ class DepartmentService extends Base
             ->get();
         return $departments;
     }
+
+    public function getList()
+    {
+        return $this->model->all();
+    }
 }

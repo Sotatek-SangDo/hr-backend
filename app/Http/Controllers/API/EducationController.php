@@ -17,7 +17,7 @@ class EducationController extends BaseController
 
     public function getEmployeeEducation(Request $request)
     {
-        $educations = $this->educationService->getEmployeeEducation($request);
+        $educations = $this->service->getEmployeeEducation($request);
         return response()->json($educations);
     }
 }
