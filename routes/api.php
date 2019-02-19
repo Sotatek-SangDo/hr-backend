@@ -11,7 +11,7 @@
 */
 Route::post('login', 'AuthController@login');
 
-Route::group(['prefix' => ''], function () {
+Route::group(['middleware' => 'jwt'], function () {
     Route::post('/authenticate', 'AuthController@authenticated');
     Route::group(['prefix' => 'nationalities'], function() {
         Route::get('/', 'NationalityController@getAll');
