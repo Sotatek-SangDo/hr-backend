@@ -31,8 +31,10 @@ class CandidateService extends Base
     public function getAll($request)
     {
         $query = $this->model->select('candidates.*', 'applied_jobs_status.status as status', 'applied_jobs_status.recruitment_id')
-            ->join('applied_jobs_status', 'applied_jobs_status.candidate_id', '=', 'candidates.id')
-            ->where('applied_jobs_status.recruitment_id', $request['id']);
+            ->join('applied_jobs_status', 'applied_jobs_status.candidate_id', '=', 'candidates.id');
+        if ($request['id']) {
+            $query = $query->where('applied_jobs_status.recruitment_id', $request['id']);
+        }
         return $this->basePaginate($request, $query);
     }
 
