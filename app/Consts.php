@@ -13,4 +13,5 @@ class Consts
 
     const LIMIT = 20;
     const PLUS = '+';
+    const FULL = 'full';
 }

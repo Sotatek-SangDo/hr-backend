@@ -1,0 +1,23 @@
+[
+    {
+        "roles" : "view",
+        "permissions": [
+            "sync_employee.child_sync_employee",
+            "sync_insurance.insurance_index",
+            "sync_insurance.insurance_payment",
+            "sync_recruitment.recruitment_index",
+            "sync_recruitment.candidate"
+        ]
+    },
+    {
+        "roles" : "add-edit",
+        "permissions": [
+            "sync_employee.add_employee",
+            "sync_employee.employee_profile",
+            "sync_employee.employee_edit",
+            "sync_insurance.ip_detail",
+            "sync_recruitment.recruitment_detail",
+            "sync_recruitment.interview_calendar"
+        ]
+    }
+]
