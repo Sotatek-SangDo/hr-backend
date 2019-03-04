@@ -5,6 +5,8 @@ use App\User;
 use Auth0\Login\Auth0User;
 use Auth0\Login\Auth0JWTUser;
 use Auth0\Login\Repository\Auth0UserRepository;
+use Spatie\Permission\Models\Role;
+use Spatie\Permission\Models\Permission;
 
 class CustomUserRepository extends Auth0UserRepository
 {
@@ -26,10 +28,12 @@ class CustomUserRepository extends Auth0UserRepository
             // All are required, no default set
             $user->setAttribute( 'email', $profile['name'] );
             $user->setAttribute( 'sub', $profile['sub'] );
+            $user->setAttribute( 'role', $profile['role']);
             $user->setAttribute( 'name', isset( $profile['name'] ) ? $profile['name'] : '' );
-
             $user->save();
         }
+        $role = Role::firstOrCreate(['name'=> $profile['role']]);
+        $user->assignRole($role);
         return $user;
     }
 

@@ -13,7 +13,7 @@ class CreatePermissionTable extends Migration
      */
     public function up()
     {
-        Schema::create('permissions', function (Blueprint $table) {
+        Schema::create('permissions_router', function (Blueprint $table) {
             $table->increments('id');
             $table->string('role');
             $table->integer('priority');
@@ -29,7 +29,7 @@ class CreatePermissionTable extends Migration
      */
     public function down()
     {
-        Schema::create('permissions', function (Blueprint $table) {
+        Schema::create('permissions_router', function (Blueprint $table) {
             //
         });
     }

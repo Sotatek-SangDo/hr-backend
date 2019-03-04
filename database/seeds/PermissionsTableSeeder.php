@@ -11,7 +11,7 @@ class PermissionsTableSeeder extends Seeder
      */
     public function run()
     {
-        DB::table('permissions')->truncate();
+        DB::table('permissions_router')->truncate();
 
         $json = json_decode(file_get_contents(database_path('data/permission.json')));
         $data = [];
@@ -24,6 +24,6 @@ class PermissionsTableSeeder extends Seeder
                 'priority' => $item->priority
             ];
         }
-        DB::table('permissions')->insert($data);
+        DB::table('permissions_router')->insert($data);
     }
 }

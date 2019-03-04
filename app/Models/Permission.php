@@ -7,7 +7,7 @@ use DB;
 
 class Permission extends Model
 {
-    protected $table = 'permissions';
+    protected $table = 'permissions_router';
 
     protected $fillable = [
         'role',
@@ -17,12 +17,12 @@ class Permission extends Model
 
     public function getMaxPriorityRole($roles)
     {
-        $permission = DB::table('permissions')->where('priority', $this->getMaxPriority($roles))->first();
+        $permission = DB::table('permissions_router')->where('priority', $this->getMaxPriority($roles))->first();
         return $permission;
     }
 
     private function getMaxPriority($roles)
     {
-        return DB::table('permissions')->whereIn('role', $roles)->max('priority');
+        return DB::table('permissions_router')->whereIn('role', $roles)->max('priority');
     }
 }
