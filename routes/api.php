@@ -150,5 +150,5 @@ Route::group(['middleware' => 'jwt'], function () {
     Route::group(['prefix' => 'certifications'], function() {
         Route::get('/', 'CertificationController@getAll');
     });
-    Route::post('routers/dynamic', 'PermissionController@index')->middleware(['role:writer']);
+    Route::post('routers/dynamic', 'PermissionController@index')->middleware(['role:admin']);
 });
