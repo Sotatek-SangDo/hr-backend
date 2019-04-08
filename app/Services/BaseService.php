@@ -62,7 +62,11 @@ class BaseService
                 try {
                     $date = Carbon::createFromFormat('Y-m-d', $params[$item])->toDateString();
                 } catch(\Exception $e) {
-                    $date = Carbon::createFromFormat('Y-m-d H:i', $params[$item])->toDateTimeString();
+                    try {
+                        $date = Carbon::createFromFormat('Y-m-d H:i', $params[$item])->toDateTimeString();
+                    } catch(\Exception $e) {
+                        $date = Carbon::parse($params[$item])->format('Y-m-d')->toDateString();
+                    }
                 }
                 $params[$item] = $date;
             });
