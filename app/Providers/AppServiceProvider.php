@@ -42,6 +42,7 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register()
     {
+        \Firebase\JWT\JWT::$leeway = 60;
         $this->app->bind(
             Auth0UserRepositoryContract::class,
             Auth0UserRepository::class

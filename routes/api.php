@@ -12,6 +12,7 @@
 Route::post('login', 'AuthController@login');
 
 Route::group(['middleware' => 'jwt'], function () {
+    Route::get('master-data', 'MasterDataController@index');
     Route::post('/authenticate', 'AuthController@authenticated');
     Route::group(['prefix' => 'nationalities'], function() {
         Route::get('/', 'NationalityController@getAll');

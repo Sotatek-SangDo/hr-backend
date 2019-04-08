@@ -42,6 +42,7 @@ class authJWT
                 return response()->json(["message" => "Unauthorized user"], 401);
             }
             $auth = User::where('sub', $user->sub)->first();
+
             Auth::login($auth);
         } catch (InvalidTokenException $e) {
             return response()->json(["message" => $e->getMessage(), 'error' => "invalid"], 401);

@@ -32,7 +32,8 @@ class CustomUserRepository extends Auth0UserRepository
             $user->setAttribute( 'name', isset( $profile['name'] ) ? $profile['name'] : '' );
             $user->save();
         }
-        $role = Role::firstOrCreate(['name'=> $profile['role']]);
+        $role = Role::where('name', $profile['role'])->first();
+        if (!$role) $role = Role::insert(['name'=> $profile['role']]);
         $user->assignRole($role);
         return $user;
     }

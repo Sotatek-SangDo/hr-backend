@@ -14,4 +14,5 @@ class Consts
     const LIMIT = 20;
     const PLUS = '+';
     const FULL = 'full';
+    const MASTER_DATA = 'Master-Data';
 }
