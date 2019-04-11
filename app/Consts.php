@@ -15,4 +15,9 @@ class Consts
     const PLUS = '+';
     const FULL = 'full';
     const MASTER_DATA = 'Master-Data';
+
+    const CONTRACT_STATUS = [
+        'active' => 'Đang có hiệu lực',
+        'inactive' => 'Hết hiệu lực'
+    ];
 }
