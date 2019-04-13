@@ -151,5 +151,13 @@ Route::group(['middleware' => 'jwt'], function () {
     Route::group(['prefix' => 'certifications'], function() {
         Route::get('/', 'CertificationController@getAll');
     });
+    Route::group(['prefix' => 'contracts'], function() {
+        Route::get('/', 'ContractController@getAll');
+        Route::post('/store', 'ContractController@store');
+        Route::post('/update', 'ContractController@update');
+        Route::post('/destroy', 'ContractController@destroy');
+        Route::get('/contract-typies', 'ContractController@contractTypies');
+        Route::get('/get-contract', 'ContractController@getContract');
+    });
     Route::post('routers/dynamic', 'PermissionController@index')->middleware(['role:admin']);
 });

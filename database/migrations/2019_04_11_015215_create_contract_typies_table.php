@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreatePermissionsTable extends Migration
+class CreateContractTypiesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,10 +13,9 @@ class CreatePermissionsTable extends Migration
      */
     public function up()
     {
-        Schema::create('group_permissions', function (Blueprint $table) {
+        Schema::create('contract_typies', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('role');
-            $table->longText('permissions')->nullable();
+            $table->string('type');
             $table->timestamps();
         });
     }
@@ -28,8 +27,6 @@ class CreatePermissionsTable extends Migration
      */
     public function down()
     {
-        Schema::table('group_permissions', function (Blueprint $table) {
-            //
-        });
+        Schema::dropIfExists('contract_typies');
     }
 }

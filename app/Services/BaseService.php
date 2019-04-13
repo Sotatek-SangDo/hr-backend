@@ -18,7 +18,8 @@ class BaseService
             'sortType' => trim(substr($request['sort'], 0, 1)) === Consts::PLUS ? 'DESC' : 'ASC',
             'sort' => substr($request['sort'], 1),
             'limited' => $request['limit'] ? $request['limit'] : Consts::LIMIT,
-            'title' => isset($request['title']) ? $request['title'] : ''
+            'title' => isset($request['title']) ? $request['title'] : '',
+            'keySearch' => isset($request['keySearch']) ? $request['keySearch'] :''
         ];
     }
 
@@ -29,11 +30,16 @@ class BaseService
         if (!$query) {
             $baseQuery = $this->model;
         }
-        $strQuery = $baseQuery->orderBy($params['sort'], $params['sortType']);
         if ($params['title']) {
-            $strQuery = $baseQuery->orderBy($params['sort'], $params['sortType'])->where('name', 'LIKE', '%' . $params['title'] . '%');
+            $baseQuery = $baseQuery->orderBy($params['sort'], $params['sortType'])->where('name', 'LIKE', '%' . $params['title'] . '%');
         }
-        return $strQuery->paginate($params['limited']);
+        if ($params['keySearch']) {
+            $sortField = "contracts.{$params['sort']}";
+            $baseQuery = $baseQuery->orderBy($sortField, $params['sortType'])
+                ->leftJoin('employees', 'contracts.employee_id', 'employees.id')
+                ->where('employees.name', 'LIKE', '%' . $params['keySearch'] . '%');
+        }
+        return $baseQuery->paginate($params['limited']);
     }
 
     public function getID($request)
@@ -74,7 +80,7 @@ class BaseService
         if ($except && isset($except['value'])) {
             collect($except['value'])->each(function($item, $key) use (&$params) {
                 $params[$key] = $item;
-            }); 
+            });
         }
         return $params;
     }
