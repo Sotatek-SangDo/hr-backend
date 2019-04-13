@@ -29,7 +29,7 @@ class EmployeeController extends BaseController
     public function store(Request $request)
     {
         $path = $this->service->hasFile($request) ? $this->uploadService->upload($request) : '';
-        if (!$path) return response()->json(['status' => false]); 
+        if (!$path) return response()->json(['status' => false]);
         $params = [
             'request' => $request,
             'avatar' => $path

@@ -17,7 +17,7 @@ class ContractTypeSeeder extends Seeder
         $data = [];
         forEach($json as $item) {
             $data[] = [
-                'contract_type' => $item->contract_type
+                'type' => $item->type
             ];
         }
         DB::table('contract_typies')->insert($data);

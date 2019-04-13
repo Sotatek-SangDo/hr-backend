@@ -1,20 +1,20 @@
 [
     {
-        "contract_type": "Thử việc"
+        "type": "Thử việc"
     },
     {
-        "contract_type": "Tập sự"
+        "type": "Tập sự"
     },
     {
-        "contract_type": "1 năm"
+        "type": "1 năm"
     },
     {
-        "contract_type": "2 năm"
+        "type": "2 năm"
     },
     {
-        "contract_type": "3 năm"
+        "type": "3 năm"
     },
     {
-        "contract_type": "Vô thời hạn"
+        "type": "Vô thời hạn"
     }
 ]

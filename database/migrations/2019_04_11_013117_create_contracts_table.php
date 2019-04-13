@@ -15,14 +15,14 @@ class CreateContractsTable extends Migration
     {
         Schema::create('contracts', function (Blueprint $table) {
             $table->increments('id');
-            $table->unsignedInteger('candidate_id');
+            $table->unsignedInteger('employee_id');
             $table->string('contract_code', 10);
             $table->date('start_date');
             $table->date('end_date');
             $table->unsignedInteger('contract_type_id');
             $table->integer('salary_basic');
             $table->integer('salary_insurrance');
-            $table->enum('status', ['active', 'inactive'])->default('active');
+            $table->enum('status', ['Hết hiệu lực', 'Đang có hiệu lưc'])->default('Đang có hiệu lưc');
             $table->timestamps();
         });
     }

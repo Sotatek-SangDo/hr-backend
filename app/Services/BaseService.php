@@ -74,7 +74,7 @@ class BaseService
         if ($except && isset($except['value'])) {
             collect($except['value'])->each(function($item, $key) use (&$params) {
                 $params[$key] = $item;
-            }); 
+            });
         }
         return $params;
     }

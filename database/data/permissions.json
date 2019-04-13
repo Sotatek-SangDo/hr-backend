@@ -6,7 +6,8 @@
             "sync_insurance.insurance_index",
             "sync_insurance.insurance_payment",
             "sync_recruitment.recruitment_index",
-            "sync_recruitment.candidate"
+            "sync_recruitment.candidate",
+            "sync_contract.child_sync_contract"
         ]
     },
     {
@@ -17,7 +18,10 @@
             "sync_employee.employee_edit",
             "sync_insurance.ip_detail",
             "sync_recruitment.recruitment_detail",
-            "sync_recruitment.interview_calendar"
+            "sync_recruitment.interview_calendar",
+            "sync_contract.add_contract",
+            "sync_contract.contract_detail",
+            "sync_contract.contract_edit"
         ]
     }
 ]
