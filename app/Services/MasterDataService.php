@@ -35,7 +35,8 @@ class MasterDataService
             'skill' => Skill::all(),
             'qualification' => DB::table('qualifications')->get(),
             'certification' => DB::table('certifications')->get(),
-            'language' => DB::table('languages')->get()
+            'language' => DB::table('languages')->get(),
+            'contractType' => DB::table('contract_typies')->get()
         ];
     }
 }
