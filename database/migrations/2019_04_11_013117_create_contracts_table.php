@@ -20,8 +20,8 @@ class CreateContractsTable extends Migration
             $table->date('start_date');
             $table->date('end_date');
             $table->unsignedInteger('contract_type_id');
+            $table->unsignedInteger('salary_insurance_id')->nullable();
             $table->integer('salary_basic')->nullable();
-            $table->integer('salary_insurrance')->nullable();
             $table->enum('status', ['Hết hiệu lực', 'Đang có hiệu lưc'])->default('Đang có hiệu lưc');
             $table->timestamps();
         });

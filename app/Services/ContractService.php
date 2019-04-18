@@ -19,7 +19,7 @@ class ContractService extends Base
 
     public function getAll($request)
     {
-        $query = $this->model->with(['contractType', 'employee']);
+        $query = $this->model->with(['contractType', 'employee', 'salaryInsurance']);
         return $this->basePaginate($request, $query);
     }
 
@@ -39,14 +39,10 @@ class ContractService extends Base
     {
         return $this->model->with([
             'contractType',
-            'employee'
+            'employee',
+            'salaryInsurance'
         ])->where('id', $request['id'])
         ->first();
-    }
-
-    public function contractTypies($request)
-    {
-        return ContractType::all();
     }
 
     public function dateFields()
