@@ -1,0 +1,12 @@
+[
+    {
+        "salary": "4500000",
+        "insurance": "Bảo hiểm xã hội",
+        "percent": "0.1"
+    },
+    {
+        "salary": "4500000",
+        "insurance": "Bảo hiểm thất nghiệp",
+        "percent": "0.1"
+    }
+]
