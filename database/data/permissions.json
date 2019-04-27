@@ -7,7 +7,10 @@
             "sync_insurance.insurance_payment",
             "sync_recruitment.recruitment_index",
             "sync_recruitment.candidate",
-            "sync_contract.child_sync_contract"
+            "sync_contract.child_sync_contract",
+            "sync_salary.child_sync_salary",
+            "sync_salary.child_sync_allowances",
+            "sync_salary.child_sync_salary_business"
         ]
     },
     {
@@ -21,7 +24,14 @@
             "sync_recruitment.interview_calendar",
             "sync_contract.add_contract",
             "sync_contract.contract_detail",
-            "sync_contract.contract_edit"
+            "sync_contract.contract_edit",
+            "sync_salary.salary_detail",
+            "sync_salary.salary_edit",
+            "sync_salary.salary_business_add",
+            "sync_salary.salary_business_edit",
+            "sync_salary.add_allowances",
+            "sync_salary.allowances_detail",
+            "sync_salary.allowances_edit"
         ]
     }
 ]
