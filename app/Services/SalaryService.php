@@ -51,4 +51,9 @@ class SalaryService extends Base
         ])->where('id', $request['id'])
         ->first();
     }
+
+    public function dateFields()
+    {
+        return ['apply_date'];
+    }
 }

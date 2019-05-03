@@ -13,7 +13,7 @@ class Salary extends Model
 
     protected $table = 'salaries';
 
-    protected $fillable = ['salary_insurance_id', 'salary_basic', 'notes', 'deleted_at'];
+    protected $fillable = ['salary_insurance_id', 'salary_basic', 'notes', 'deleted_at', 'apply_date'];
 
     protected $hidden = ['created_at', 'updated_at'];
 

@@ -19,6 +19,7 @@ class CreateSalariesTable extends Migration
             $table->unsignedInteger('salary_insurance_id')->nullable();
             $table->integer('salary_basic')->nullable();
             $table->longText('notes')->nullable();
+            $table->date('apply_date')->nullable();
             $table->softDeletes();
             $table->timestamps();
         });
