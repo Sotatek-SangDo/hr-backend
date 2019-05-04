@@ -7,7 +7,8 @@
             "sync_insurance.insurance_payment",
             "sync_recruitment.recruitment_index",
             "sync_recruitment.candidate",
-            "sync_contract.child_sync_contract"
+            "sync_contract.child_sync_contract",
+            "sync_department.child_sync_department"
         ]
     },
     {
@@ -21,7 +22,9 @@
             "sync_recruitment.interview_calendar",
             "sync_contract.add_contract",
             "sync_contract.contract_detail",
-            "sync_contract.contract_edit"
+            "sync_contract.contract_edit",
+            "sync_department.add_department",
+            "sync_department.department_edit"
         ]
     }
 ]
