@@ -17,6 +17,7 @@ Route::group(['middleware' => 'jwt'], function () {
     Route::group(['prefix' => 'nationalities'], function() {
         Route::get('/', 'NationalityController@getAll');
     });
+    Route::post('logout', 'AuthController@logout');
     Route::group(['prefix' => 'employees'], function() {
         Route::get('/', 'EmployeeController@getAll');
         Route::get('/get-employee', 'EmployeeController@getEmployee');
