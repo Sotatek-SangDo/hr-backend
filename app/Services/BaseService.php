@@ -22,7 +22,7 @@ class BaseService
             'keySearch' => isset($request['keySearch']) ? $request['keySearch'] : '',
             'keySearchSalary' => isset($request['keySearchSalary']) ? $request['keySearchSalary'] : '',
             'keySearchAllowance' => isset($request['keySearchAllowance']) ? $request['keySearchAllowance'] : '',
-            'keySearchBusiness' => isset($request['keySearchBusiness']) ? $request['keySearchBusiness'] : ''
+            'keySearchBusiness' => isset($request['keySearchBusiness']) ? $request['keySearchBusiness'] : '',
             'keySearchDepartment' => isset($request['keySearchDepartment']) ? $request['keySearchDepartment'] :''
         ];
     }
