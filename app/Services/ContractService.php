@@ -2,13 +2,14 @@
 
 namespace App\Services;
 
-use DB;
-use Exception;
 use App\Models\Contract;
 use App\Models\ContractType;
-use Illuminate\Http\Request;
-use Carbon\Carbon;
+use App\Models\Salary;
 use App\Services\BaseService as Base;
+use Carbon\Carbon;
+use DB;
+use Exception;
+use Illuminate\Http\Request;
 
 class ContractService extends Base
 {
@@ -19,12 +20,15 @@ class ContractService extends Base
 
     public function getAll($request)
     {
-        $query = $this->model->with(['contractType', 'employee', 'salaryInsurance']);
+        $query = $this->model->with(['contractType', 'employee', 'salary', 'salaryInsurance']);
         return $this->basePaginate($request, $query);
     }
 
     public function store($request)
     {
+        $salary = Salary::create(['salary_basic' => $request->salary_basic]);
+        $request->except('salary_basic');
+        $request->request->add(['salary_id' => $salary->id]);
         $contract = $this->baseStore($request);
         return $contract;
     }
@@ -40,6 +44,7 @@ class ContractService extends Base
         return $this->model->with([
             'contractType',
             'employee',
+            'salary',
             'salaryInsurance'
         ])->where('id', $request['id'])
         ->first();

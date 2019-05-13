@@ -159,5 +159,25 @@ Route::group(['middleware' => 'jwt'], function () {
         Route::post('/destroy', 'ContractController@destroy');
         Route::get('/get-contract', 'ContractController@getContract');
     });
+    Route::group(['prefix' => 'salaries'], function() {
+        Route::get('/', 'SalaryController@getAll');
+        Route::post('/update', 'SalaryController@update');
+        Route::post('/destroy', 'SalaryController@destroy');
+        Route::get('/get-salary', 'SalaryController@getSalary');
+    });
+    Route::group(['prefix' => 'salary-business'], function() {
+        Route::get('/', 'SalaryBusinessController@getAll');
+        Route::post('/store', 'SalaryBusinessController@store');
+        Route::post('/update', 'SalaryBusinessController@update');
+        Route::post('/destroy', 'SalaryBusinessController@destroy');
+        Route::get('/get-salary-business', 'SalaryBusinessController@getSalaryBusiness');
+    });
+    Route::group(['prefix' => 'allowances'], function() {
+        Route::get('/', 'AllowancesController@getAll');
+        Route::post('/store', 'AllowancesController@store');
+        Route::post('/update', 'AllowancesController@update');
+        Route::post('/destroy', 'AllowancesController@destroy');
+        Route::get('/get-allowances', 'AllowancesController@getAllowances');
+    });
     Route::post('routers/dynamic', 'PermissionController@index')->middleware(['role:admin']);
 });
