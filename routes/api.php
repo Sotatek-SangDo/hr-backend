@@ -55,6 +55,7 @@ Route::group(['middleware' => 'jwt'], function () {
         Route::post('destroy', 'DepartmentController@destroy');
         Route::get('get-eDepartment', 'DepartmentController@getEDepartment');
         Route::get('/get-list', 'DepartmentController@getList');
+        Route::get('get-department', 'DepartmentController@getDepartment');
     });
     Route::group(['prefix' => 'educations'], function() {
         Route::get('/', 'EducationController@getAll');

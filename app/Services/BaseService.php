@@ -23,6 +23,7 @@ class BaseService
             'keySearchSalary' => isset($request['keySearchSalary']) ? $request['keySearchSalary'] : '',
             'keySearchAllowance' => isset($request['keySearchAllowance']) ? $request['keySearchAllowance'] : '',
             'keySearchBusiness' => isset($request['keySearchBusiness']) ? $request['keySearchBusiness'] : ''
+            'keySearchDepartment' => isset($request['keySearchDepartment']) ? $request['keySearchDepartment'] :''
         ];
     }
 
@@ -60,6 +61,11 @@ class BaseService
             $baseQuery = $baseQuery->orderBy($sortField, $params['sortType'])
                 ->leftJoin('employees', 'salary_business.employee_id', 'employees.id')
                 ->where('employees.name', 'LIKE', '%' . $params['keySearchBusiness'] . '%');
+        }
+        if ($params['keySearchDepartment']) {
+            $sortField = "departments.{$params['sort']}";
+            $baseQuery = $baseQuery->orderBy($sortField, $params['sortType'])
+                ->where('name', 'LIKE', '%' . $params['keySearchDepartment'] . '%');
         }
         return $baseQuery->paginate($params['limited']);
     }

@@ -11,6 +11,7 @@
             "sync_salary.child_sync_salary",
             "sync_salary.child_sync_allowances",
             "sync_salary.child_sync_salary_business"
+            "sync_department.child_sync_department"
         ]
     },
     {
@@ -32,6 +33,8 @@
             "sync_salary.add_allowances",
             "sync_salary.allowances_detail",
             "sync_salary.allowances_edit"
+            "sync_department.add_department",
+            "sync_department.department_edit"
         ]
     }
 ]
