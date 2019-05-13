@@ -56,6 +56,7 @@ Route::group(['middleware' => 'jwt'], function () {
         Route::post('destroy', 'DepartmentController@destroy');
         Route::get('get-eDepartment', 'DepartmentController@getEDepartment');
         Route::get('/get-list', 'DepartmentController@getList');
+        Route::get('get-department', 'DepartmentController@getDepartment');
     });
     Route::group(['prefix' => 'educations'], function() {
         Route::get('/', 'EducationController@getAll');
@@ -157,8 +158,27 @@ Route::group(['middleware' => 'jwt'], function () {
         Route::post('/store', 'ContractController@store');
         Route::post('/update', 'ContractController@update');
         Route::post('/destroy', 'ContractController@destroy');
-        Route::get('/contract-typies', 'ContractController@contractTypies');
         Route::get('/get-contract', 'ContractController@getContract');
+    });
+    Route::group(['prefix' => 'salaries'], function() {
+        Route::get('/', 'SalaryController@getAll');
+        Route::post('/update', 'SalaryController@update');
+        Route::post('/destroy', 'SalaryController@destroy');
+        Route::get('/get-salary', 'SalaryController@getSalary');
+    });
+    Route::group(['prefix' => 'salary-business'], function() {
+        Route::get('/', 'SalaryBusinessController@getAll');
+        Route::post('/store', 'SalaryBusinessController@store');
+        Route::post('/update', 'SalaryBusinessController@update');
+        Route::post('/destroy', 'SalaryBusinessController@destroy');
+        Route::get('/get-salary-business', 'SalaryBusinessController@getSalaryBusiness');
+    });
+    Route::group(['prefix' => 'allowances'], function() {
+        Route::get('/', 'AllowancesController@getAll');
+        Route::post('/store', 'AllowancesController@store');
+        Route::post('/update', 'AllowancesController@update');
+        Route::post('/destroy', 'AllowancesController@destroy');
+        Route::get('/get-allowances', 'AllowancesController@getAllowances');
     });
     Route::post('routers/dynamic', 'PermissionController@index')->middleware(['role:admin']);
 });

@@ -19,7 +19,11 @@ class BaseService
             'sort' => substr($request['sort'], 1),
             'limited' => $request['limit'] ? $request['limit'] : Consts::LIMIT,
             'title' => isset($request['title']) ? $request['title'] : '',
-            'keySearch' => isset($request['keySearch']) ? $request['keySearch'] :''
+            'keySearch' => isset($request['keySearch']) ? $request['keySearch'] : '',
+            'keySearchSalary' => isset($request['keySearchSalary']) ? $request['keySearchSalary'] : '',
+            'keySearchAllowance' => isset($request['keySearchAllowance']) ? $request['keySearchAllowance'] : '',
+            'keySearchBusiness' => isset($request['keySearchBusiness']) ? $request['keySearchBusiness'] : '',
+            'keySearchDepartment' => isset($request['keySearchDepartment']) ? $request['keySearchDepartment'] :''
         ];
     }
 
@@ -38,6 +42,30 @@ class BaseService
             $baseQuery = $baseQuery->orderBy($sortField, $params['sortType'])
                 ->leftJoin('employees', 'contracts.employee_id', 'employees.id')
                 ->where('employees.name', 'LIKE', '%' . $params['keySearch'] . '%');
+        }
+        if ($params['keySearchSalary']) {
+            $sortField = "salaries.{$params['sort']}";
+            $baseQuery = $baseQuery->orderBy($sortField, $params['sortType'])
+                ->leftJoin('contracts', 'salaries.id', 'contracts.salary_id')
+                ->leftJoin('employees', 'contracts.employee_id', 'employees.id')
+                ->where('employees.name', 'LIKE', '%' . $params['keySearchSalary'] . '%');
+        }
+        if ($params['keySearchAllowance']) {
+            $sortField = "allowances.{$params['sort']}";
+            $baseQuery = $baseQuery->orderBy($sortField, $params['sortType'])
+                ->leftJoin('employees', 'allowances.employee_id', 'employees.id')
+                ->where('employees.name', 'LIKE', '%' . $params['keySearchAllowance'] . '%');
+        }
+        if ($params['keySearchBusiness']) {
+            $sortField = "salary_business.{$params['sort']}";
+            $baseQuery = $baseQuery->orderBy($sortField, $params['sortType'])
+                ->leftJoin('employees', 'salary_business.employee_id', 'employees.id')
+                ->where('employees.name', 'LIKE', '%' . $params['keySearchBusiness'] . '%');
+        }
+        if ($params['keySearchDepartment']) {
+            $sortField = "departments.{$params['sort']}";
+            $baseQuery = $baseQuery->orderBy($sortField, $params['sortType'])
+                ->where('name', 'LIKE', '%' . $params['keySearchDepartment'] . '%');
         }
         return $baseQuery->paginate($params['limited']);
     }

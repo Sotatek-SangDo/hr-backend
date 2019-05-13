@@ -19,4 +19,9 @@ class DepartmentController extends BaseController
         $departments = $this->service->getEDepartment();
         return response()->json($departments);
     }
+
+    public function getDepartment(Request $request)
+    {
+        return response()->json($this->service->getDepartment($request));
+    }
 }

@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateContractsTable extends Migration
+class CreateAllowancesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,14 +13,13 @@ class CreateContractsTable extends Migration
      */
     public function up()
     {
-        Schema::create('contracts', function (Blueprint $table) {
+        Schema::create('allowances', function (Blueprint $table) {
             $table->increments('id');
             $table->unsignedInteger('employee_id');
-            $table->string('contract_code', 10)->unique();
-            $table->date('start_date');
-            $table->date('end_date');
-            $table->unsignedInteger('contract_type_id');
-            $table->unsignedInteger('salary_id');
+            $table->string('allowance_type');
+            $table->integer('subsidy');
+            $table->date('apply_date');
+            $table->longText('notes')->nullable();
             $table->enum('status', ['Hết hiệu lực', 'Đang có hiệu lưc'])->default('Đang có hiệu lưc');
             $table->timestamps();
         });
@@ -33,6 +32,6 @@ class CreateContractsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('contracts');
+        Schema::dropIfExists('salary_allowances');
     }
 }
