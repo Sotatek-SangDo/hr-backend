@@ -19,7 +19,8 @@ class BaseService
             'sort' => substr($request['sort'], 1),
             'limited' => $request['limit'] ? $request['limit'] : Consts::LIMIT,
             'title' => isset($request['title']) ? $request['title'] : '',
-            'keySearch' => isset($request['keySearch']) ? $request['keySearch'] :''
+            'keySearch' => isset($request['keySearch']) ? $request['keySearch'] :'',
+            'keySearchDepartment' => isset($request['keySearchDepartment']) ? $request['keySearchDepartment'] :''
         ];
     }
 
@@ -38,6 +39,11 @@ class BaseService
             $baseQuery = $baseQuery->orderBy($sortField, $params['sortType'])
                 ->leftJoin('employees', 'contracts.employee_id', 'employees.id')
                 ->where('employees.name', 'LIKE', '%' . $params['keySearch'] . '%');
+        }
+        if ($params['keySearchDepartment']) {
+            $sortField = "departments.{$params['sort']}";
+            $baseQuery = $baseQuery->orderBy($sortField, $params['sortType'])
+                ->where('name', 'LIKE', '%' . $params['keySearchDepartment'] . '%');
         }
         return $baseQuery->paginate($params['limited']);
     }

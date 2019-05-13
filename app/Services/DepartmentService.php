@@ -26,8 +26,25 @@ class DepartmentService extends Base
         return $departments;
     }
 
-    public function getList()
+    public function getAll($request)
     {
-        return $this->model->all();
+        return $this->basePaginate($request, $this->model);
+    }
+
+    public function store($request)
+    {
+        $department = $this->baseStore($request);
+        return $department;
+    }
+
+    public function update($request)
+    {
+        $department = $this->baseUpdate($request);
+        return $department;
+    }
+
+    public function getDepartment($request)
+    {
+        return $this->model->where('id', $request['id'])->first();
     }
 }

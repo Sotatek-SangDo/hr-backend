@@ -23,7 +23,6 @@ class Department extends Model
     public function getCountEmpAttribute()
     {
         $count = DB::table('employees')->where('department_id', $this->id)->count();
-        logger('count: ===>'. $count);
-        return $count ?: 1;
+        return $count;
     }
 }
