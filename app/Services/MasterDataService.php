@@ -37,7 +37,8 @@ class MasterDataService
             'certification' => DB::table('certifications')->get(),
             'language' => DB::table('languages')->get(),
             'contractType' => DB::table('contract_typies')->get(),
-            'salaryInsurance' => DB::table('salary_insurances')->get()
+            'salaryInsurance' => DB::table('salary_insurances')->get(),
+            'rolls' => DB::table('rolls')->get()
         ];
     }
 }
