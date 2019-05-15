@@ -28,7 +28,7 @@ class Department extends Model
 
     public function rolls()
     {
-        return $this->belongsToMany(Roll::class, 'department_roll');
+        return $this->belongsToMany(Roll::class)->whereNull('department_roll.deleted_at')->withTimestamps();
     }
 
     public function getCountRollAttribute()

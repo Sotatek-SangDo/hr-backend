@@ -17,7 +17,7 @@ class RollTableSeeder extends Seeder
         $data = [];
         forEach($json as $item) {
             $data[] = [
-                'name' => json_encode($item->name)
+                'name' => $item->name
             ];
         }
         DB::table('rolls')->insert($data);

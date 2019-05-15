@@ -17,6 +17,7 @@ class CreateDepartmentRollTable extends Migration
             $table->increments('id');
             $table->unsignedInteger('department_id');
             $table->unsignedInteger('roll_id');
+            $table->softDeletes();
             $table->timestamps();
         });
     }

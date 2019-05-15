@@ -49,17 +49,9 @@ class DepartmentService extends Base
 
         $department->update($params);
 
-        $oldRolls = DepartmentRoll::where('department_id', $department->id)->pluck('roll_id');
-        $deleteArray = array_diff($oldRolls->toArray(), $rolls);
-        $addArray = array_diff($rolls, $oldRolls->toArray());
+        DepartmentRoll::where('department_id', $department->id)->delete();
 
-        if (!empty($deleteArray)) {
-            $department->rolls()->detach($deleteArray);
-        }
-
-        if (!empty($addArray)) {
-            $department->rolls()->attach($addArray);
-        }
+        $department->rolls()->attach($rolls);
 
         return $department;
     }
