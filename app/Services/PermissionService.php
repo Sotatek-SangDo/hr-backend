@@ -66,7 +66,7 @@ class PermissionService
     {
         $groupPermissions = $group === Consts::FULL
                 ? $this->groupPermission->all()
-                : $this->groupPermission->whereIn('permissions', $group)->get();
+                : $this->groupPermission->whereIn('role', $group)->get();
         return $this->getListPermissions($groupPermissions);
     }
 
