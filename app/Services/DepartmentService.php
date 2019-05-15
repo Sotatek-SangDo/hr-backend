@@ -2,12 +2,13 @@
 
 namespace App\Services;
 
+use App\Consts;
+use App\Models\Department;
+use App\Models\DepartmentRoll;
+use App\Services\BaseService as Base;
+use Carbon\Carbon;
 use DB;
 use Exception;
-use App\Models\Department;
-use Carbon\Carbon;
-use App\Services\BaseService as Base;
-use App\Consts;
 
 class DepartmentService extends Base
 {
@@ -33,18 +34,40 @@ class DepartmentService extends Base
 
     public function store($request)
     {
-        $department = $this->baseStore($request);
+        $rolls = explode(',', $request->rolls);
+        $params = $request->except('rolls');
+        $department = $this->model->create($params);
+        $department->rolls()->attach($rolls);
         return $department;
     }
 
     public function update($request)
     {
-        $department = $this->baseUpdate($request);
+        $rolls = explode(',', $request->rolls);
+        $params = $request->except('rolls');
+        $department = $this->model->find($this->getID($request));
+
+        $department->update($params);
+
+        $oldRolls = DepartmentRoll::where('department_id', $department->id)->pluck('roll_id');
+        $deleteArray = array_diff($oldRolls->toArray(), $rolls);
+        $addArray = array_diff($rolls, $oldRolls->toArray());
+
+        if (!empty($deleteArray)) {
+            $department->rolls()->detach($deleteArray);
+        }
+
+        if (!empty($addArray)) {
+            $department->rolls()->attach($addArray);
+        }
+
         return $department;
     }
 
     public function getDepartment($request)
     {
-        return $this->model->where('id', $request['id'])->first();
+        return $this->model->where('id', $request['id'])
+            ->with(['rolls'])
+            ->first();
     }
 }
