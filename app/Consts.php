@@ -20,4 +20,11 @@ class Consts
         'active' => 'Đang có hiệu lực',
         'inactive' => 'Hết hiệu lực'
     ];
+
+    const HEADERS = 'headers';
+    const CONTENT_TYPE = 'Content-Type';
+    const AUTHORIZATION = 'Authorization';
+    const BEARER = 'Bearer ';
+    const JSON = 'JSON';
+    const AUTH_API_CREATE_USER = 'api/users/register';
 }

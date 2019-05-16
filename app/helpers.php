@@ -4,6 +4,7 @@
 * Created at: 2019-02-26
 */
 use Illuminate\Support\Str;
+use App\Consts;
 
 if (!function_exists('str_prefix')) {
     function str_prefix( $string )
@@ -25,5 +26,11 @@ if (!function_exists('str_subfix')) {
     {
         $explode = explode('.', $string);
         return $explode[1];
+    }
+}
+
+if (!function_exists('authorization_token')) {
+    function authorization_token($request) {
+        return Consts::BEARER . $request->bearerToken();
     }
 }
