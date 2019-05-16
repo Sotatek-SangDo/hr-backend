@@ -27,4 +27,9 @@ class Consts
     const BEARER = 'Bearer ';
     const JSON = 'JSON';
     const AUTH_API_CREATE_USER = 'api/users/register';
+    const AUTH_API_FORGOT_PASS = 'api/users/forgotpassword';
+    const AUTH_API_UPDATE_USER = 'api/users/update';
+    const AUTH_API_CHANGE_PASS = 'api/users/changepassword';
+    const AUTH_API_DEL_USER = 'rest/api/users/delete';
+    const AUTH_API_RESET_PASS = 'rest/api/users/resetpassword';
 }

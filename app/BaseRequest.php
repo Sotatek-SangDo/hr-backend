@@ -34,10 +34,10 @@ class BaseRequest
         return $config;
     }
 
-    private function addParams($config, $addParams)
+    private function addParams($config, $params)
     {
         if ( !isset($config[Consts::HEADERS][Consts::CONTENT_TYPE] )) return;
-        $contentType = explode('' , $config[Consts::HEADERS][Consts::CONTENT_TYPE]);
+        $contentType = explode('/' , $config[Consts::HEADERS][Consts::CONTENT_TYPE]);
         $contentType[1] === Consts::JSON
             ? $config['json'] = $params
             : $config['form_params'] = $params;
