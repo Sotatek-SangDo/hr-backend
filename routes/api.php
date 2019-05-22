@@ -181,4 +181,11 @@ Route::group(['middleware' => 'jwt'], function () {
         Route::get('/get-allowances', 'AllowancesController@getAllowances');
     });
     Route::post('routers/dynamic', 'PermissionController@index')->middleware(['role:admin']);
+
+    Route::group(['prefix' => 'user'], function() {
+        Route::get('list', 'AuthController@getList');
+        Route::post('store', 'AuthController@store')->middleware(['role:admin', 'permission:create user']);
+        Route::post('update', 'AuthController@update');
+        Route::post('destroy', 'AuthController@destroy');
+    });
 });

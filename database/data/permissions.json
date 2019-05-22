@@ -34,7 +34,9 @@
             "sync_salary.allowances_detail",
             "sync_salary.allowances_edit",
             "sync_department.add_department",
-            "sync_department.department_edit"
+            "sync_department.department_edit",
+            "sync_permission.store_permission",
+            "sync_permission.edit_permission"
         ]
     }
 ]

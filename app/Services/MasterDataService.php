@@ -38,7 +38,8 @@ class MasterDataService
             'language' => DB::table('languages')->get(),
             'contractType' => DB::table('contract_typies')->get(),
             'salaryInsurance' => DB::table('salary_insurances')->get(),
-            'rolls' => DB::table('rolls')->get()
+            'rolls' => DB::table('rolls')->get(),
+            'roles' => DB::table('permissions_router')->select('role')->get()
         ];
     }
 }

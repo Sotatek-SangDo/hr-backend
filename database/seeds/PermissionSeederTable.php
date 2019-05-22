@@ -14,6 +14,10 @@ class PermissionSeederTable extends Seeder
      */
     public function run()
     {
+        Schema::disableForeignKeyConstraints();
+        DB::table('permissions')->truncate();
+        DB::table('roles')->truncate();
+        Schema::enableForeignKeyConstraints();
         app()[\Spatie\Permission\PermissionRegistrar::class]->forgetCachedPermissions();
         // create permissions
         Permission::create(['name' => 'view employee']);
@@ -37,12 +41,21 @@ class PermissionSeederTable extends Seeder
         Permission::create(['name' => 'delete candidate']);
         Permission::create(['name' => 'view interview']);
         Permission::create(['name' => 'update interview']);
-        Permission::create(['name' => 'create interview']);
         Permission::create(['name' => 'delete interview']);
+        Permission::create(['name' => 'create user']);
+        Permission::create(['name' => 'update user']);
+        Permission::create(['name' => 'delete user']);
         // create roles and assign created permissions
         // or may be done by chaining
         $role = Role::create(['name' => 'author'])
-            ->givePermissionTo(['view employee', 'create employee', 'view insurance', 'view insurance payment', 'view recruitment', 'view candidate']);
+            ->givePermissionTo([
+                'view employee',
+                'create employee',
+                'view insurance',
+                'view insurance payment',
+                'view recruitment',
+                'view candidate'
+            ]);
 
         $role = Role::create(['name' => 'admin']);
         $role->givePermissionTo(Permission::all());
