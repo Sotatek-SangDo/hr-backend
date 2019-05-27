@@ -11,7 +11,7 @@ class JobTableSeeder extends Seeder
      */
     public function run()
     {
-        DB::table('jobs')->truncate();
+        DB::table('hr_jobs')->truncate();
 
         $json = json_decode(file_get_contents(database_path('data/jobs.json')));
         $data = [];
@@ -20,6 +20,6 @@ class JobTableSeeder extends Seeder
                 'title' => $item->title
             ];
         }
-        DB::table('jobs')->insert($data);
+        DB::table('hr_jobs')->insert($data);
     }
 }

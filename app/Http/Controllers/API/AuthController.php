@@ -10,7 +10,7 @@ use Illuminate\Support\Facades\Hash;
 use Auth;
 use App\Services\AuthService;
 
-class AuthController extends Controller 
+class AuthController extends Controller
 {
     private $authService;
 
@@ -54,45 +54,45 @@ class AuthController extends Controller
         return response()->json(json_decode($user));
     }
 
-    public function registerUser(Request $request)
+    public function store(Request $request)
     {
         $result = $this->authService->createUser($request);
 
-        return response()->json(['status' => $result->status]);
+        return response()->json($result);
     }
 
     public function forgotPassword(Request $request)
     {
         $result = $this->authService->forgotPassword($request);
 
-        return response()->json(['status' => $result->status]);
+        return response()->json($result);
     }
 
     public function updateUser(Request $request)
     {
         $result = $this->authService->updateUser($request);
 
-        return response()->json(['status' => $result->status]);
+        return response()->json($result);
     }
 
     public function changePassword(Request $request)
     {
         $result = $this->authService->changePassword($request);
 
-        return response()->json(['status' => $result->status]);
+        return response()->json($result);
     }
 
     public function deleteUser(Request $request)
     {
         $result = $this->authService->deleteUser($request);
 
-        return response()->json(['status' => $result->status]);
+        return response()->json($result);
     }
 
     public function resetPassword(Request $request)
     {
         $result = $this->authService->resetPassword($request);
 
-        return response()->json(['status' => $result->status]);
+        return response()->json($result);
     }
 }

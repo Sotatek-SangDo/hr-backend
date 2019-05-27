@@ -21,11 +21,14 @@ class Consts
         'inactive' => 'Hết hiệu lực'
     ];
 
+    const STATUS_OK = 200;
+    const BAD_REQUEST = 400;
+
     const HEADERS = 'headers';
     const CONTENT_TYPE = 'Content-Type';
     const AUTHORIZATION = 'Authorization';
     const BEARER = 'Bearer ';
-    const JSON = 'JSON';
+    const JSON = 'json';
     const AUTH_API_CREATE_USER = 'api/users/register';
     const AUTH_API_FORGOT_PASS = 'api/users/forgotpassword';
     const AUTH_API_UPDATE_USER = 'api/users/update';

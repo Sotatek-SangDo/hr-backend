@@ -8,20 +8,24 @@ use App\Consts;
 class BaseRequest
 {
     private $client;
-    private $response;
+    public $response;
+    public $content;
 
     public function __construct()
     {
         $this->client = new Client([
-            'base_uri' => env('AUTH0_DOMAIN')
+            'base_uri' => env('AUTH0_DOMAIN'),
+            'http_errors' => false
         ]);
     }
 
     public function request($endpoint, $method, $headers, $params = [])
     {
         $params = $this->parseParams($params, $headers);
-        $response = $this->client->request($method, $endpoint, $params);
-        $this->response = json_decode($response->getBody(), true);
+        $this->response = $this->client->request($method, $endpoint, $params);
+        $this->content = json_encode($this->response->getBody(), true);
+
+        return json_decode($this->response->getBody(), true);
     }
 
     public function parseParams($params, $headers = [])
@@ -46,8 +50,7 @@ class BaseRequest
 
     public function getContent()
     {
-        if(!$this->response) return;
-        return $this->response;
+        return $this->content;
     }
 
     public function getStatusCode()

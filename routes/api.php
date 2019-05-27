@@ -189,3 +189,4 @@ Route::group(['middleware' => 'jwt'], function () {
         Route::post('destroy', 'AuthController@destroy');
     });
 });
+Route::post('user/forgot-password', 'AuthController@forgotPassword');

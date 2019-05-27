@@ -4,6 +4,9 @@ namespace App\Services;
 
 use App\BaseRequest;
 use App\Consts;
+use App\Jobs\CreateUserEmail;
+use App\Jobs\SendMailForgotPassword;
+use DB;
 
 class AuthService
 {
@@ -19,18 +22,49 @@ class AuthService
         $headers = $this->jsonHeader();
         $params = $this->getCreateParams($request);
         $endpoint = Consts::AUTH_API_CREATE_USER;
-        $this->base->request($endpoint, 'POST', $headers, $params);
-        return ['status' => $this->base->getStatusCode()];
+        $response = $this->base->request($endpoint, 'POST', $headers, $params);
+
+        $status = $this->base->getStatusCode();
+        $result = ['status' => $status];
+
+        if(Consts::STATUS_OK === $status) {
+            CreateUserEmail::dispatch($request->all());
+        }
+
+        if (Consts::BAD_REQUEST === $status) {
+            $result['message'] = $response['message'];
+        }
+        return $result;
     }
 
     public function forgotPassword($request)
     {
-        $headers = $this->jsonHeader();
-        $params = $request->only('email');
-        $endpoint = Consts::AUTH_API_FORGOT_PASS;
+        try {
+            $headers = $this->jsonHeader();
+            $params = $request->only('email');
+            $endpoint = Consts::AUTH_API_FORGOT_PASS;
 
-        $this->base->request($endpoint, 'POST', $headers, $params);
+            $response = $this->base->request($endpoint, 'POST', $headers, $params);
+            $this->sendMailForgot($request, $response);
+        } catch(\Exception $e) {
+            logger('Error >>>>' . $e->getMessage());
+        }
         return ['status' => $this->base->getStatusCode()];
+    }
+
+    private function sendMailForgot($request, $response)
+    {
+        $url = $this->generateForgotUrl($response);
+        $content = [
+            'email' => $request->email,
+            'url' => $url
+        ];
+        SendMailForgotPassword::dispatch($content);
+    }
+
+    private function generateForgotUrl($response)
+    {
+        return env('FE_URL') . 'reset-password?code=' . $response["code"];
     }
 
     public function updateUser($request)
@@ -77,7 +111,7 @@ class AuthService
     private function getCreateParams($request)
     {
         return $request->only([
-            "email", "password", "confirmPassword", "firstname", "lastname", "role", "phonenumber"
+            "email", "password", "confirmPassword", "firstName", "lastName", "role", "phonenumber"
         ]);
     }
 
