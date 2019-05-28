@@ -6,4 +6,4 @@
 <p>Password: {{ $information["password"] }}</p>
 
 <p>Please login and change password to complete the registration process! Thank you!</p>
-<p><a href="{{ env('FE_URL') }}">Go to site</a></p>
+<p><a href="{{ env('FE_URL', 'http://localhost:8000/#/') }}">Go to site</a></p>

@@ -59,12 +59,13 @@ class AuthService
             'email' => $request->email,
             'url' => $url
         ];
+        logger(1);
         SendMailForgotPassword::dispatch($content);
     }
 
     private function generateForgotUrl($response)
     {
-        return env('FE_URL') . 'reset-password?code=' . $response["code"];
+        return env('FE_URL', 'http://localhost:8000/#/') . 'reset-password?code=' . $response["code"];
     }
 
     public function updateUser($request)
