@@ -26,5 +26,7 @@ class DatabaseSeeder extends Seeder
         $this->call(PermissionTableSeeder::class);
         $this->call(ContractTypeSeeder::class);
         $this->call(SalaryInsuranceSeeder::class);
+        $this->call(RollTableSeeder::class);
+        $this->call(PermissionSeederTable::class);
     }
 }

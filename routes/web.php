@@ -20,6 +20,8 @@ Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
 
+Route::get('test-rq', 'HomeController@testRequest');
+Route::get('create/user', 'HomeController@createUser');
 Route::get('test', function() {
     //return Carbon::createFromFormat('Y-m-d H:i', '1975-05-21 22:10')->toDateTimeString();
     //return Carbon::parse('05-01-2019 09:01')->format('');

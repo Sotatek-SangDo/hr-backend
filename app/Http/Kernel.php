@@ -64,6 +64,7 @@ class Kernel extends HttpKernel
         'hr.api' => \App\Http\Middleware\ApiAuthenticator::class,
         'jwt' => \App\Http\Middleware\authJWT::class,
         'role' => \Spatie\Permission\Middlewares\RoleMiddleware::class,
+        'permission' => \Spatie\Permission\Middlewares\PermissionMiddleware::class,
     ];
 
     /**
