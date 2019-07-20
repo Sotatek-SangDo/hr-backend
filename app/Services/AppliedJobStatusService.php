@@ -6,12 +6,14 @@ use DB;
 use Exception;
 use App\Models\AppliedJobStatus;
 use Carbon\Carbon;
+use App\Consts;
+use App\Services\BaseService as Base;
 
-class AppliedJobStatusService
+class AppliedJobStatusService extends Base
 {
-    public function getAll($empID)
+    public function __construct(AppliedJobStatus $model)
     {
-        return AppliedJobStatus::get();
+        $this->model = $model;
     }
 
     public function store($data)
@@ -23,14 +25,12 @@ class AppliedJobStatusService
         ]);
     }
 
-    public function update($request)
+    public function update($data)
     {
-        $candidate = AppliedJobStatus::findOrFail($request['id']);
-        $candidate->candidate_id = $request['candidate_id'];
-        $candidate->emp_id = $request['emp_id'];
-        $candidate->job_id = $request['job_id'];
-        $candidate->status = $request['status'];
-        $candidate->save();
-        return $candidate;
+        $apply = AppliedJobStatus::where('candidate_id', $data['candidate_id'])
+            ->first();
+        $apply->recruitment_id = $data['recruitment_id'];
+        $apply->save();
+        return $apply;
     }
 }

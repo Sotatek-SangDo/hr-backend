@@ -18,7 +18,7 @@ class CreateInterviewsTable extends Migration
             $table->unsignedInteger('candidate_id');
             $table->datetime('started_at');
             $table->datetime('ended_at');
-            $table->string('address');
+            $table->string('address')->nullable();
             $table->unsignedInteger('interviewer');
             $table->timestamps();
         });

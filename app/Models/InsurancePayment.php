@@ -10,21 +10,15 @@ class InsurancePayment extends Model
     protected $table = 'insurance_payments';
 
     protected $fillable = [
-        'title',
+        'name',
         'time'
     ];
 
     protected $appends = [
-        'name'
     ];
 
     public function setTimeAttribute($v)
     {
         $this->attributes['time'] = Carbon::parse($v)->format('Y-m-d');
-    }
-
-    public function getNameAttribute()
-    {
-        return $this->title;
     }
 }

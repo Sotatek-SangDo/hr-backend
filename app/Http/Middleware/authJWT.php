@@ -7,6 +7,7 @@ use Auth0\SDK\Exception\CoreException;
 use Auth0\SDK\Exception\InvalidTokenException;
 use Closure;
 use Auth;
+use App\User;
 
 class authJWT
 {
@@ -40,7 +41,9 @@ class authJWT
             if (!$user) {
                 return response()->json(["message" => "Unauthorized user"], 401);
             }
-            Auth::login($user);
+            $auth = User::where('sub', $user->sub)->first();
+
+            Auth::login($auth);
         } catch (InvalidTokenException $e) {
             return response()->json(["message" => $e->getMessage(), 'error' => "invalid"], 401);
         } catch (CoreException $e) {

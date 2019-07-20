@@ -42,13 +42,11 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        \Firebase\JWT\JWT::$leeway = 10;
-
+        \Firebase\JWT\JWT::$leeway = 60;
         $this->app->bind(
             Auth0UserRepositoryContract::class,
             Auth0UserRepository::class
         );
-        
         // This is used for RS256 tokens to avoid fetching the JWKs on each request
         $this->app->bind(
             '\Auth0\SDK\Helpers\Cache\CacheHandler',

@@ -8,39 +8,33 @@ use Illuminate\Support\Facades\Validator;
 use App\Services\EmployeeService;
 use Illuminate\Support\Facades\File;
 use App\Services\UploadImageService;
+use App\Http\Controllers\API\BaseController;
 
-class EmployeeController extends Controller
+class EmployeeController extends BaseController
 {
-    private $employeeService;
     private $uploadService;
 
     public function __construct(EmployeeService $employeeService, UploadImageService $uploadService)
     {
-        $this->employeeService = $employeeService;
+        $this->service = $employeeService;
         $this->uploadService = $uploadService;
-    }
-
-    public function getAll()
-    {
-        $employee = $this->employeeService->getAll();
-        return response()->json($employee);
     }
 
     public function getEmployee(Request $request)
     {
-        $employee = $this->employeeService->getEmployee($request);
+        $employee = $this->service->getEmployee($request);
         return response()->json($employee);
     }
 
     public function store(Request $request)
     {
-        $path = $this->uploadService->upload($request);
-        if (!$path) return response()->json(['status' => false]); 
+        $path = $this->service->hasFile($request) ? $this->uploadService->upload($request) : '';
+        if (!$path) return response()->json(['status' => false]);
         $params = [
-            'emp' => $request->all(),
-            'image' => $path
+            'request' => $request,
+            'avatar' => $path
         ];
-        $result = $this->employeeService->store($params);
+        $result = $this->service->store($params);
         if ($result)
             return response()->json(['status' => true]);
         return response()->json(['status' => false]);
@@ -48,20 +42,20 @@ class EmployeeController extends Controller
 
     public function update(Request $request)
     {
-        $path = $this->uploadService->upload($request);
+        $path = $this->service->hasFile($request) ? $this->uploadService->upload($request) : '';
         $params = [
-            'emp' => $request->all(),
-            'image' => $path
+            'request' => $request,
+            'avatar' => $path
         ];
-        $result = $this->employeeService->update($params);
+        $result = $this->service->update($params);
         if ($result)
             return response()->json(['status' => true]);
         return response()->json(['status' => false]);
     }
 
-    public function getEmpFullInfo()
+    public function getEmpFullInfo(Request $request)
     {
-        $employees = $this->employeeService->getEmpFullInfo();
+        $employees = $this->service->getEmpFullInfo($request);
         return response()->json($employees);
     }
 }

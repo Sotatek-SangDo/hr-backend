@@ -10,40 +10,22 @@ use Carbon\Carbon;
 use Illuminate\Support\Facades\File;
 use App\Imports\InterviewImport;
 use Excel;
+use App\Services\BaseService;
 
-class InterviewService
+class InterviewService extends BaseService
 {
-    public function __construct()
+    public function __construct(Interview $model)
     {
+        $this->model = $model;
     }
 
-    public function getAll()
+    public function getInterviews()
     {
-        return Interview::all();
+        return $this->getList();
     }
 
-    public function store($request)
+    public function dateFields()
     {
-        return Interview::create([
-            'candidate_id' => $request["candidate_id"],
-            'started_at' => Carbon::createFromFormat('Y-m-d H:i', $request["started_at"])->toDateTimeString(),
-            'ended_at' => Carbon::createFromFormat('Y-m-d H:i', $request["ended_at"])->toDateTimeString(),
-            'interviewer' => $request["interviewer"],
-            'address' => $request["address"]
-        ]);
-    }
-
-    public function update($request)
-    {
-        $interview = Interview::findOrFail($request['id']);
-        $interview->started_at = Carbon::parse($request['started_at'])->format('Y-m-d H:i');
-        $interview->ended_at = Carbon::parse($request['ended_at'])->format('Y-m-d H:i');
-        $interview->save();
-        return $interview;
-    }
-
-    public function importExcelData(Request $request)
-    {
-        Excel::import(new InterviewImport, $request->file('file'));
+        return ['started_at', 'ended_at'];
     }
 }

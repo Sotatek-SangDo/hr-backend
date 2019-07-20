@@ -6,78 +6,45 @@ use DB;
 use Exception;
 use App\Models\Employee;
 use Carbon\Carbon;
+use App\Services\BaseService as Base;
 
-class EmployeeService
+class EmployeeService extends Base
 {
-    public function getAll()
+    public $avatar;
+
+    public function __construct(Employee $model)
     {
-        return Employee::all();
+        $this->model = $model;
     }
 
-    public function store($data)
+    public function store($params)
     {
-        $params = $data['emp'];
-        return Employee::create([
-            'name' => $params["full_name"],
-            'work_email' => $params["email"],
-            'avatar' => $data['image'],
-            'nationality_id' => $params["nationality_id"],
-            'country' => $params["country"],
-            'ethnicity' => $params["ethnicity"],
-            'private_email' => $params["private_email"],
-            'address' => $params["address"],
-            'joined_at' => Carbon::createFromFormat('d-m-Y', $params["joined_at"])->toDateString(),
-            'phone' => $params["phone"],
-            'gender' => $params["gender"],
-            'birthday' => Carbon::createFromFormat('d-m-Y', $params["birthday"])->toDateString(),
-            'marital_status' => $params["marital_status"],
-            'confirmed_at' => Carbon::createFromFormat('d-m-Y', $params["confirmed_at"])->toDateString(),
-            'supervisor_id' => 1,
-            'department_id' => $params["department"],
-            'paygrade_id' => $params["pay_grade"],
-            'status' => $params["status"],
-            'job_id' => $params["job"]
-        ]);
+        $this->avatar = $params['avatar'];
+        return $this->baseStore($params['request']);
     }
 
-    public function update($data)
+    public function update($params)
     {
-        $params = $data['emp'];
-        logger(json_encode($params));
-        $emp = Employee::findOrFail($params['id']);
-        $emp->name = $params['full_name'];
-        $emp->work_email = $params['email'];
-        if ($data['image']) {
-            $emp->avatar = $data['image'];
+        $request = $params['request'];
+        if ($params['avatar']) {
+            $this->avatar = $params['avatar'];
         }
-        $emp->nationality_id = $params['nationality_id'];
-        $emp->country = $params['country'];
-        $emp->ethnicity = $params['ethnicity'];
-        $emp->private_email = $params['private_email'];
-        $emp->address = $params['address'];
-        $emp->joined_at = Carbon::parse($params["joined_at"])->toDateString();
-        $emp->phone = $params['phone'];
-        $emp->gender = $params['gender'];
-        $emp->birthday = Carbon::parse($params['birthday'])->toDateString();
-        $emp->marital_status = $params['marital_status'];
-        $emp->confirmed_at = Carbon::parse($params['confirmed_at'])->toDateString();
-        $emp->supervisor_id = 1;
-        $emp->department_id = 1;//$params["department"],
-        $emp->paygrade_id = $params["pay_grade"];
-        $emp->status = $params['status'];
-        $emp->job_id = $params['job'];
-        $emp->save();
-        return $emp;
+        return $this->baseUpdate($request);
     }
 
-    public function getEmpFullInfo()
+    public function getEmpFullInfo($request)
     {
-        return Employee::with(['nationality', 'employeeStatus', 'payGrade', 'job', 'certifications', 'skills', 'educations', 'languages', 'emergencyContracts'])->get();
+        $query = $this->model->with(['nationality', 'employeeStatus', 'payGrade', 'job', 'certifications', 'skills', 'educations', 'languages', 'emergencyContracts']);
+        return $this->basePaginate($request, $query);
+    }
+
+    public function getList()
+    {
+        return $this->model->all();
     }
 
     public function getEmployee($request)
     {
-        logger($request['id']);
         return Employee::with([
             'nationality',
             'employeeStatus',
@@ -90,5 +57,20 @@ class EmployeeService
             'emergencyContracts'
         ])->where('id', $request['id'])
         ->first();
+    }
+
+    public function dateFields()
+    {
+        return ['joined_at', 'confirmed_at', 'birthday'];
+    }
+
+    public function except()
+    {
+        return [
+            'key' => ['avatar'],
+            'value' => [
+                'avatar' => $this->avatar
+            ]
+        ];
     }
 }

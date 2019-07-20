@@ -12,19 +12,23 @@
 Route::post('login', 'AuthController@login');
 
 Route::group(['middleware' => 'jwt'], function () {
+    Route::get('master-data', 'MasterDataController@index');
     Route::post('/authenticate', 'AuthController@authenticated');
     Route::group(['prefix' => 'nationalities'], function() {
         Route::get('/', 'NationalityController@getAll');
     });
+    Route::post('logout', 'AuthController@logout');
     Route::group(['prefix' => 'employees'], function() {
         Route::get('/', 'EmployeeController@getAll');
         Route::get('/get-employee', 'EmployeeController@getEmployee');
+        Route::get('get-list', 'EmployeeController@getList');
         Route::post('/store', 'EmployeeController@store');
         Route::post('/update', 'EmployeeController@update');
         Route::get('/full-info', 'EmployeeController@getEmpFullInfo');
     });
     Route::group(['prefix' => 'employee-status'], function() {
         Route::get('/', 'EmployeeStatusController@getAll');
+        Route::get('get-list', 'EmployeeStatusController@getList');
     });
     Route::group(['prefix' => 'jobs'], function() {
         Route::get('/', 'JobController@getAll');
@@ -48,7 +52,11 @@ Route::group(['middleware' => 'jwt'], function () {
     Route::group(['prefix' => 'departments'], function() {
         Route::get('/', 'DepartmentController@getAll');
         Route::post('/store', 'DepartmentController@store');
+        Route::post('update', 'DepartmentController@update');
+        Route::post('destroy', 'DepartmentController@destroy');
         Route::get('get-eDepartment', 'DepartmentController@getEDepartment');
+        Route::get('/get-list', 'DepartmentController@getList');
+        Route::get('get-department', 'DepartmentController@getDepartment');
     });
     Route::group(['prefix' => 'educations'], function() {
         Route::get('/', 'EducationController@getAll');
@@ -86,9 +94,8 @@ Route::group(['middleware' => 'jwt'], function () {
         Route::post('/destroy', 'UserLanguageController@destroy');
     });
     Route::group(['prefix' => 'candidates'], function() {
-        Route::get('/', 'CandidateController@getAll');
-        Route::get('get-candidate-recruitment', 'CandidateController@getCandidateByRecruitment');
-        Route::post('import-data', 'CandidateController@importExcelData');
+        Route::get('/', 'CandidateController@getList');
+        Route::get('get-candidate-recruitment', 'CandidateController@getAll');
         Route::post('/store', 'CandidateController@store');
         Route::post('/update', 'CandidateController@update');
         Route::post('/destroy', 'CandidateController@destroy');
@@ -101,12 +108,14 @@ Route::group(['middleware' => 'jwt'], function () {
     });
     Route::group(['prefix' => 'recruitments'], function() {
         Route::get('/', 'RecruitmentController@getAll');
+        Route::get('list', 'RecruitmentController@getList');
         Route::post('/store', 'RecruitmentController@store');
         Route::post('/update', 'RecruitmentController@update');
         Route::post('/destroy', 'RecruitmentController@destroy');
     });
     Route::group(['prefix' => 'interviews'], function() {
-        Route::get('/', 'InterviewController@getAll');
+        Route::get('/', 'InterviewController@getList');
+        Route::get('all', 'InterviewController@getInterviews');
         Route::post('/store', 'InterviewController@store');
         Route::post('/update', 'InterviewController@update');
     });
@@ -125,6 +134,7 @@ Route::group(['middleware' => 'jwt'], function () {
     });
     Route::group(['prefix' => 'insurance-payment'], function() {
         Route::get('/', 'InsurancePaymentController@getAll');
+        Route::get('get-list', 'InsurancePaymentController@getList');
         Route::post('/store', 'InsurancePaymentController@store');
         Route::post('/update', 'InsurancePaymentController@update');
     });
@@ -132,6 +142,7 @@ Route::group(['middleware' => 'jwt'], function () {
         Route::get('/', 'InsuranceEmpPaymentController@getAll');
         Route::post('/store', 'InsuranceEmpPaymentController@store');
         Route::post('/update', 'InsuranceEmpPaymentController@update');
+        Route::post('destroy', 'InsuranceEmpPaymentController@destroy');
     });
     Route::group(['prefix' => 'languages'], function() {
         Route::get('/', 'LanguageController@getAll');
@@ -142,4 +153,32 @@ Route::group(['middleware' => 'jwt'], function () {
     Route::group(['prefix' => 'certifications'], function() {
         Route::get('/', 'CertificationController@getAll');
     });
+    Route::group(['prefix' => 'contracts'], function() {
+        Route::get('/', 'ContractController@getAll');
+        Route::post('/store', 'ContractController@store');
+        Route::post('/update', 'ContractController@update');
+        Route::post('/destroy', 'ContractController@destroy');
+        Route::get('/get-contract', 'ContractController@getContract');
+    });
+    Route::group(['prefix' => 'salaries'], function() {
+        Route::get('/', 'SalaryController@getAll');
+        Route::post('/update', 'SalaryController@update');
+        Route::post('/destroy', 'SalaryController@destroy');
+        Route::get('/get-salary', 'SalaryController@getSalary');
+    });
+    Route::group(['prefix' => 'salary-business'], function() {
+        Route::get('/', 'SalaryBusinessController@getAll');
+        Route::post('/store', 'SalaryBusinessController@store');
+        Route::post('/update', 'SalaryBusinessController@update');
+        Route::post('/destroy', 'SalaryBusinessController@destroy');
+        Route::get('/get-salary-business', 'SalaryBusinessController@getSalaryBusiness');
+    });
+    Route::group(['prefix' => 'allowances'], function() {
+        Route::get('/', 'AllowancesController@getAll');
+        Route::post('/store', 'AllowancesController@store');
+        Route::post('/update', 'AllowancesController@update');
+        Route::post('/destroy', 'AllowancesController@destroy');
+        Route::get('/get-allowances', 'AllowancesController@getAllowances');
+    });
+    Route::post('routers/dynamic', 'PermissionController@index')->middleware(['role:admin']);
 });

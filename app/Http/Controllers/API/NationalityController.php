@@ -6,19 +6,12 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Validator;
 use App\Services\NationalityService;
+use App\Http\Controllers\API\BaseController as Base;
 
-class NationalityController extends Controller 
+class NationalityController extends Base
 {
-    private $nationalityService;
-
     public function __construct(NationalityService $nationalityService)
     {
-        $this->nationalityService = $nationalityService;
-    }
-
-    public function getAll()
-    {
-        $nationalities = $this->nationalityService->getAll();
-        return response()->json($nationalities);
+        $this->service = $nationalityService;
     }
 }

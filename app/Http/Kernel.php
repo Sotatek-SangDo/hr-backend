@@ -39,7 +39,7 @@ class Kernel extends HttpKernel
 
         'api' => [
             \Barryvdh\Cors\HandleCors::class,
-            'throttle:60,1',
+            //'throttle:60,1',
             'bindings',
         ],
     ];
@@ -63,6 +63,7 @@ class Kernel extends HttpKernel
         'verified' => \Illuminate\Auth\Middleware\EnsureEmailIsVerified::class,
         'hr.api' => \App\Http\Middleware\ApiAuthenticator::class,
         'jwt' => \App\Http\Middleware\authJWT::class,
+        'role' => \Spatie\Permission\Middlewares\RoleMiddleware::class,
     ];
 
     /**

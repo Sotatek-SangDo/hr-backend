@@ -10,25 +10,10 @@ use App\Services\BaseService as Base;
 
 class InsurancePaymentService extends Base
 {
-    public function getAll()
-    {
-        return InsurancePayment::all();
-    }
+    public $model;
 
-    public function store($request)
+    public function __construct(InsurancePayment $model)
     {
-        return InsurancePayment::create([
-            'time' => $request['time'],
-            'title' => $request['title'],
-        ]);
-    }
-
-    public function update($request)
-    {
-        $insurance = InsurancePayment::findOrFail($request['id']);
-        $insurance->time = $request['time'];
-        $insurance->title = $request['title'];
-        $insurance->save();
-        return $insurance;
+        $this->model = $model;
     }
 }

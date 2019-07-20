@@ -1,0 +1,12 @@
+[
+    {
+        "roles" : "admin",
+        "permissions": "full",
+        "priority": 100
+    },
+    {
+        "roles" : "guest",
+        "permissions": ["view"],
+        "priority": 50
+    }
+]

@@ -16,7 +16,7 @@ class CreateInsurancePaymentTable extends Migration
         Schema::create('insurance_payments', function (Blueprint $table) {
             $table->increments('id');
             $table->date('time');
-            $table->string('title');
+            $table->string('name');
             $table->timestamps();
         });
     }

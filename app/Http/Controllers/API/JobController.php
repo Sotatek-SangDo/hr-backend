@@ -6,19 +6,12 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Validator;
 use App\Services\JobService;
+use App\Http\Controllers\API\BaseController as Base;
 
-class JobController extends Controller 
+class JobController extends Base
 {
-    private $jobService;
-
     public function __construct(JobService $jobService)
     {
-        $this->jobService = $jobService;
-    }
-
-    public function getAll()
-    {
-        $jobs = $this->jobService->getAll();
-        return response()->json($jobs);
+        $this->service = $jobService;
     }
 }
